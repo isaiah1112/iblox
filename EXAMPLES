@@ -58,7 +58,7 @@ ips = iblox.get(objtype='record:host_ipv4addr', ipv4addr_regex="192\.168\..*",
                     _paging=1, _return_as_object=1, _max_results=1000)
 while paging:
     if 'next_page_id' in ips.keys():
-    	pages.extend(ips['result'])
+        pages.extend(ips['result'])
         ips = iblox.get(objtype='record:host_ipv4addr', _page_id=ips['next_page_id'])
     else:
         pages.extend(ips['result'])
