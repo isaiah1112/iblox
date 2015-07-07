@@ -15,7 +15,7 @@ requests module as well as numerous shortcuts for manipulating objects within In
 #
 #     You should have received a copy of the GNU Lesser General Public License
 #     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-__version__ = '1.4.4'
+__version__ = '1.4.5'
 
 import requests
 import json
@@ -263,7 +263,7 @@ class Infoblox(object):
         :return: string of _return_type (json or xml)
         """
         ipv4addrs = []
-        if type(ipaddr) is list or type(ipaddr) is tuple:
+        if type(ipaddr) in (list, tuple):
             for ip in ipaddr:
                 ipv4addrs.append(ipv4addr_obj(ip))
         else:
@@ -284,7 +284,7 @@ class Infoblox(object):
             host = self.get_host_by_name(fqdn)[0]
         except IndexError:
             raise HostNotFound("Unable to find host with name " + fqdn)
-        if type(ipaddr) is list or type(ipaddr) is tuple:
+        if type(ipaddr) in (list, tuple):
             for ip in ipaddr:
                 host['ipv4addrs'].append(ipv4addr_obj(ip))
         else:
@@ -301,7 +301,7 @@ class Infoblox(object):
         thishost = self.get_host(name=fqdn, _return_fields_plus="aliases")
         if 'aliases' not in thishost.keys():
             thishost['aliases'] = []
-        if type(alias) is list or type(alias) is tuple:
+        if type(alias) in (list, tuple):
             for name in alias:
                 if name not in thishost['aliases']:
                     thishost['aliases'].append(name)
@@ -321,7 +321,7 @@ class Infoblox(object):
         if 'aliases' not in thishost.keys():
             return thishost
         else:
-            if type(alias) is list or type(alias) is tuple:
+            if type(alias) in (list, tuple):
                 for name in alias:
                     if name in thishost['aliases']:
                         thishost['aliases'].remove(name)
