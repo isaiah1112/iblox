@@ -22,32 +22,31 @@ import json
 
 
 class MissingRequiredArgument(Exception):
-    """
-    A required argument was missing from your statement
+    """A required argument was missing from your statement
     """
     pass
 
 
 class HostNotFound(Exception):
-    """
-    Unable to find host in Infoblox
+    """Unable to find host in Infoblox
     """
     pass
 
 
 class UnknownReturnType(Exception):
-    """
-    You specified a return time that is not supported
+    """You specified a return time that is not supported
     """
     pass
 
 
 def ipv4addr_obj(ipaddr, **kwargs):
-    """
-    Create a new IPv4 Address dictionary
-    :param ipaddr: ipv4 address
-    :param kwargs: key/value options for ipv4addr object
-    :return: ipvraddr dictionary with default values
+    """Create a new IPv4 Address dictionary
+
+    - **parameters** and **return types**::
+
+        :param ipaddr: ipv4 address
+        :param kwargs: key/value options for ipv4addr object
+        :return: ipvraddr dictionary with default values
     """
     ipv4_obj = {'configure_for_dhcp': False, 'ipv4addr': ipaddr}
     for key, value in kwargs.iteritems():
@@ -56,18 +55,17 @@ def ipv4addr_obj(ipaddr, **kwargs):
 
 
 class Infoblox(object):
-    """
-    Infoblox WAPI object.
-    """
+    """Create a new instance of the Infoblox WAPI Object
+
+        - **parameters** and **return types**::
+
+            :param uri: Full url to the infoblox WAPI
+            :param username: Infoblox User with API Access
+            :param password: Password for Infoblox User
+            :param verify_ssl: Verify SSL Certificate
+            :return: Infoblox Object
+        """
     def __init__(self, uri, username=None, password=None, verify_ssl=False):
-        """
-        Create a new instance of the Infoblox WAPI Object
-        :param uri: Full url to the infoblox WAPI
-        :param username: Infoblox User with API Access
-        :param password: Password for Infoblox User
-        :param verify_ssl: Verify SSL Certificate
-        :return: Infoblox Object
-        """
         if uri.endswith("/") is False:
             uri += "/"
         self.uri = uri
@@ -90,19 +88,22 @@ class Infoblox(object):
     def __getitem__(self, item):
         return self.__dict__[item]
 
-    def __verify__(self, **kwargs):
-        """
-        Private method for verifying the named argument data and preparing it for a wapi call
+    def _verify_(self, **kwargs):
+        """Private method for verifying the named argument data and preparing it for a wapi call
 
-        Key modifiers will also be fixed if the key ends in one of the following strings:
-        _plus = +
-        _regex = ~
-        _notequal = !
-        _ignorecase = :
-        _lessthan = <
-        _greaterthan = >
-        :param kwargs: key/value pairs
-        :return: Dictionary ready for wapi call
+        .. note::
+            Key modifiers will also be fixed if the key ends in one of the following strings:
+                * _plus = +
+                * _regex = ~
+                * _notequal = !
+                * _ignorecase = :
+                * _lessthan = <
+                * _greaterthan = >
+
+        - **parameters** and **return types**::
+
+            :param kwargs: key/value pairs
+            :return: Dictionary ready for wapi call
         """
         nkeys = kwargs.keys()
         if '_ref' not in nkeys and 'objtype' not in nkeys:
@@ -133,21 +134,27 @@ class Infoblox(object):
         return newdict
 
     def keys(self):
-        """
-        Return the object as a dictionary
-        :return: Dictionary
+        """Return the object as a dictionary
+
+        - **parameters** and **return types**::
+
+            :return: Dictionary
         """
         return self.__dict__.keys()
 
     def get(self, **kwargs):
-        """
+        """ Query the Infoblox WAPI
+
         Query the Infoblox WAPI for records of a specific type (with or without regular expressions)
         OR
         Query the Infoblox WAPI for a specific record by its _ref
-        :param kwargs: Key/Value parameters
-        :return: string of _return_type (json or xml)
+
+        - **parameters** and **return types**::
+
+            :param kwargs: Key/Value parameters
+            :return: string of _return_type (json or xml)
         """
-        kwargs = self.__verify__(**kwargs)
+        kwargs = self._verify_(**kwargs)
         nkeys = kwargs.keys()
         if "_ref" in nkeys:
             result = self.session.get(self.uri + kwargs['_ref'], auth=self.auth, verify=self.verify)
@@ -161,12 +168,14 @@ class Infoblox(object):
             return result.text
 
     def add(self, **kwargs):
+        """Add a record of a given type to Infoblox via the WAPI
+
+        - **parameters** and **return types**::
+
+            :param kwargs: key/value parameters
+            :return: string of _return_type (json or xml)
         """
-        Add a record of a given type to Infoblox via the WAPI
-        :param kwargs: key/value parameters
-        :return: string of _return_type (json or xml)
-        """
-        kwargs = self.__verify__(**kwargs)
+        kwargs = self._verify_(**kwargs)
         objtype = kwargs['objtype']
         del kwargs['objtype']
         result = self.session.post(self.uri + objtype, auth=self.auth, verify=self.verify, data=json.dumps(kwargs))
@@ -176,14 +185,16 @@ class Infoblox(object):
             return result.text
 
     def delete(self, ref, **kwargs):
-        """
-        Delete a record in Infoblox based on its _ref id.
-        :param ref: Reference id for a given object
-        :param kwargs: key/value parameters
-        :return: string of _return_type (json or xml)
+        """Delete a record in Infoblox based on its _ref id.
+
+        - **parameters** and **return types**::
+
+            :param ref: Reference id for a given object
+            :param kwargs: key/value parameters
+            :return: string of _return_type (json or xml)
         """
         kwargs['_ref'] = ref
-        kwargs = self.__verify__(**kwargs)
+        kwargs = self._verify_(**kwargs)
         del kwargs['_ref']
         result = self.session.delete(self.uri + ref, auth=self.auth, verify=self.verify, data=json.dumps(kwargs))
         if self._return_type == 'json':
@@ -192,14 +203,16 @@ class Infoblox(object):
             return result.text
 
     def modify(self, ref, **kwargs):
-        """
-        Modify/Update an existing object
-        :param ref: The _ref id of the object to update
-        :param kwargs: key/value parameters
-        :return: string of _return_type (json or xml)
+        """Modify/Update an existing object
+
+        - **parameters** and **return types**::
+
+            :param ref: The _ref id of the object to update
+            :param kwargs: key/value parameters
+            :return: string of _return_type (json or xml)
         """
         kwargs['_ref'] = ref
-        kwargs = self.__verify__(**kwargs)
+        kwargs = self._verify_(**kwargs)
         del kwargs['_ref']
         result = self.session.put(self.uri + ref, auth=self.auth, verify=self.verify, data=json.dumps(kwargs))
         if self._return_type == 'json':
@@ -208,16 +221,18 @@ class Infoblox(object):
             return result.text
 
     def call(self, ref, func, **kwargs):
-        """
-        Call a specific function on a given object
-        :param ref: The _ref of the object
-        :param func: The function to call
-        :param kwargs: Data to be passed to the function
-        :return: String of _return_type(json or xml)
+        """Call a specific function on a given object
+
+        - **parameters** and **return types**::
+
+            :param ref: The _ref of the object
+            :param func: The function to call
+            :param kwargs: Data to be passed to the function
+            :return: String of _return_type(json or xml)
         """
         _function = {'_function': func}
         kwargs['_ref'] = ref
-        kwargs = self.__verify__(**kwargs)
+        kwargs = self._verify_(**kwargs)
         del kwargs['_ref']
         result = self.session.post(self.uri + ref, auth=self.auth, verify=self.verify,
                                    params=_function, data=json.dumps(kwargs))
@@ -227,10 +242,12 @@ class Infoblox(object):
             return result.text
 
     def get_host(self, **kwargs):
-        """
-        Shortcut for finding host records
-        :param kwargs: Can contain dictionary of data to search for or _ref of specific record
-        :return: string of _return_type (json or xml)
+        """Shortcut for finding host records
+
+        - **parameters** and **return types**::
+
+            :param kwargs: Can contain dictionary of data to search for or _ref of specific record
+            :return: string of _return_type (json or xml)
         """
         if "_ref" in kwargs.keys():
             return self.get(**kwargs)
@@ -239,28 +256,33 @@ class Infoblox(object):
             return self.get(**kwargs)
 
     def get_host_by_ip(self, ipaddr):
-        """
-        Shortcut for finding a host record by its primary IPV4 address
-        :param ipaddr: IPV4 address
-        :return: string of _return_type (json or xml)
+        """Shortcut for finding a host record by its primary IPV4 address
+
+        - **parameters** and **return types**::
+
+            :param ipaddr: IPV4 address
+            :return: string of _return_type (json or xml)
         """
         return self.get_host(ipv4addr=ipaddr)
 
     def get_host_by_name(self, fqdn):
-        """
-        Shortcut for finding a host record by its fully qualified domain name
-        :param fqdn: Fully Qualified Domain Name
-        :return: string of _return_type (json or xml)
+        """Shortcut for finding a host record by its fully qualified domain name
+
+        - **parameters** and **return types**::
+            :param fqdn: Fully Qualified Domain Name
+            :return: string of _return_type (json or xml)
         """
         return self.get_host(name=fqdn)
 
     def add_host(self, fqdn, ipaddr, **kwargs):
-        """
-        Shortcut for adding a host record with an iPV4 address
-        :param fqdn: Fully Qualified Domain Name of the host to add
-        :param ipaddr: IPV4 address of the host (can be a list of ipv4 addresses)
-        :param kwargs: Key/Value dictionary of any extra options to add to host record
-        :return: string of _return_type (json or xml)
+        """Shortcut for adding a host record with an iPV4 address
+
+        - **parameters** and **return types**::
+
+            :param fqdn: Fully Qualified Domain Name of the host to add
+            :param ipaddr: IPV4 address of the host (can be a list of ipv4 addresses)
+            :param kwargs: Key/Value dictionary of any extra options to add to host record
+            :return: string of _return_type (json or xml)
         """
         ipv4addrs = []
         if type(ipaddr) in (list, tuple):
@@ -274,11 +296,13 @@ class Infoblox(object):
         return self.add(**newhost)
 
     def add_host_ip(self, fqdn, ipaddr):
-        """
-        Shortcut for adding an ip to a given host
-        :param fqdn: Fully Qualified Domain name of the host
-        :param ipaddr: IPV4 address of the host (can be a list of ipv4 addresses)
-        :return: Modified host record
+        """Shortcut for adding an ip to a given host
+
+        - **parameters** and **return types**::
+
+            :param fqdn: Fully Qualified Domain name of the host
+            :param ipaddr: IPV4 address of the host (can be a list of ipv4 addresses)
+            :return: Modified host record
         """
         try:
             host = self.get_host_by_name(fqdn)[0]
@@ -292,11 +316,13 @@ class Infoblox(object):
         return self.modify(host['_ref'], ipv4addrs=host['ipv4addrs'])
 
     def add_alias(self, fqdn, alias):
-        """
-        Shortcut for adding an alias/CNAME to a given host record
-        :param fqdn: Fully Qualified Domain Name of the host
-        :param alias: A fqdn name (or list of fqdns) to add as aliases/CNAMES
-        :return: string of _return_type (json or xml)
+        """Shortcut for adding an alias/CNAME to a given host record
+
+        - **parameters** and **return types**::
+
+            :param fqdn: Fully Qualified Domain Name of the host
+            :param alias: A fqdn name (or list of fqdns) to add as aliases/CNAMES
+            :return: string of _return_type (json or xml)
         """
         thishost = self.get_host(name=fqdn, _return_fields_plus="aliases")
         if 'aliases' not in thishost.keys():
@@ -311,11 +337,13 @@ class Infoblox(object):
         return self.modify(thishost['_ref'], aliases=thishost['aliases'])
 
     def delete_alias(self, fqdn, alias):
-        """
-        Shortcut for adding an alias/CNAME to a given host record
-        :param fqdn: Fully Qualified Domain Name of the host
-        :param alias: The fqdn of the alias (or list of fqdns) you wish to remove
-        :return: string of _return_type (json or xml)
+        """Shortcut for adding an alias/CNAME to a given host record
+
+        - **parameters** and **return types**::
+
+            :param fqdn: Fully Qualified Domain Name of the host
+            :param alias: The fqdn of the alias (or list of fqdns) you wish to remove
+            :return: string of _return_type (json or xml)
         """
         thishost = self.get_host(name=fqdn, _return_fields_plus='aliases')
         if 'aliases' not in thishost.keys():
