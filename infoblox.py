@@ -269,6 +269,7 @@ class Infoblox(object):
         """Shortcut for finding a host record by its fully qualified domain name
 
         - **parameters** and **return types**::
+
             :param fqdn: Fully Qualified Domain Name
             :return: string of _return_type (json or xml)
         """
