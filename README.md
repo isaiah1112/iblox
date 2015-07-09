@@ -24,7 +24,7 @@ get infoblox.py working is to:
 
 Comments and enhancements are very welcome.
 
-Report any issues or feature requests on the [GitHub bug
+Report any issues or feature requests on the [BitBucket bug
 tracker](https://bitbucket.org/isaiah1112/infoblox/issues?status=new&status=open). Please include a minimal
 (not-) working example which reproduces the bug and, if appropriate, the
  traceback information.  Please do not request features already being worked
