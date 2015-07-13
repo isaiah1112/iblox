@@ -4,9 +4,10 @@
 
 from distutils.core import setup
 
+import infoblox
 
 setup(name='infoblox',
-      version='1.4.5',
+      version=infoblox.__version__,
       description='Python Infoblox WAPI Module',
       author='Jesse Almanrode',
       author_email='jesse@almanrode.com',
