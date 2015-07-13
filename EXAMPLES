@@ -5,13 +5,13 @@ import infoblox
 
 # GLOBALS
 uri = 'https://infoblox.example.com/wapi/v1.7.1/'
-user = 'jdoe'
-passwd = 'password'
+user = 'admin'
+passwd = 'infoblox'
 
 # Build new API object for Infoblox
 iblox = infoblox.Infoblox(uri, username=user, password=passwd)
 
-# Performing Queries - Returns Dictionaries
+# Performing Queries - Returns Lists of Dictionaries
 print iblox.get(objtype='record:txt', name='host.example.com')
 print iblox.get(objtype='record:host', name='host.example.com')
 
@@ -23,7 +23,7 @@ print iblox.get(objtype='record:host', name='host.example.com', _return_fields_p
 # named arguments like:
 print iblox.get(objtype='record:host', name_regex='.*\.example\.com')
 
-# Performing Add - Returns _ref if successfull, dictionary if not
+# Performing Add - Returns _ref if successful, dictionary if not
 host = iblox.add_host('myhost.example.com', '192.168.0.10', comment='This is a test')
 print host
 txt = iblox.add(objtype='record:txt', name='myhost.example.com', text='This is a test')
@@ -46,7 +46,7 @@ print iblox.delete_alias(host['name'], 'myalias.example.com')
 
 # Add a service record
 iblox.add(objtype='record:srv', name='_kerberos._tcp.dc._msdcs.example.com',
-            target='mydc.example.com', port=88, priority=0, weight=100)
+          target='mydc.example.com', port=88, priority=0, weight=100)
 
 # Adding an IP to a host record
 print iblox.add_host_ip('host.example.com', '192.168.0.11')
@@ -55,7 +55,7 @@ print iblox.add_host_ip('host.example.com', '192.168.0.11')
 pages = []
 paging = True
 ips = iblox.get(objtype='record:host_ipv4addr', ipv4addr_regex="192\.168\..*",
-                    _paging=1, _return_as_object=1, _max_results=1000)
+                _paging=1, _return_as_object=1, _max_results=1000)
 while paging:
     if 'next_page_id' in ips.keys():
         pages.extend(ips['result'])

@@ -15,7 +15,7 @@ requests module as well as numerous shortcuts for manipulating objects within In
 #
 #     You should have received a copy of the GNU Lesser General Public License
 #     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-__version__ = '1.4.5'
+__version__ = '1.4.6'
 
 import requests
 import json
@@ -325,7 +325,7 @@ class Infoblox(object):
             :param alias: A fqdn name (or list of fqdns) to add as aliases/CNAMES
             :return: string of _return_type (json or xml)
         """
-        thishost = self.get_host(name=fqdn, _return_fields_plus="aliases")
+        thishost = self.get_host(name=fqdn, _return_fields_plus="aliases")[0]
         if 'aliases' not in thishost.keys():
             thishost['aliases'] = []
         if type(alias) in (list, tuple):
@@ -346,7 +346,7 @@ class Infoblox(object):
             :param alias: The fqdn of the alias (or list of fqdns) you wish to remove
             :return: string of _return_type (json or xml)
         """
-        thishost = self.get_host(name=fqdn, _return_fields_plus='aliases')
+        thishost = self.get_host(name=fqdn, _return_fields_plus='aliases')[0]
         if 'aliases' not in thishost.keys():
             return thishost
         else:

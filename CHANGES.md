@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 1.4.6
+ * Fixed bugs in **add_alias** and **delete_alias** shortcuts
+
 ## Version 1.4.5
  * Releasing As Open Source under LGPL v3+
 
