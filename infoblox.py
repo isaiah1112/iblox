@@ -64,6 +64,10 @@ class Infoblox(object):
             :param password: Password for Infoblox User
             :param verify_ssl: Verify SSL Certificate
             :return: Infoblox Object
+
+        - **properties**:
+
+            :property view: The DNS view to add objects to (default is 'default')
         """
     def __init__(self, uri, username=None, password=None, verify_ssl=False):
         if uri.endswith("/") is False:
