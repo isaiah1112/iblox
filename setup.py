@@ -2,12 +2,10 @@
 # coding=utf-8
 """Setup file for infoblox module"""
 
-from distutils.core import setup
-
-import infoblox
+from setuptools import setup
 
 setup(name='infoblox',
-      version=infoblox.__version__,
+      version='1.4.6',
       description='Python Infoblox WAPI Module',
       author='Jesse Almanrode',
       author_email='jesse@almanrode.com',
