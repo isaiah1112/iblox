@@ -14,7 +14,7 @@ sys.path.append(project)
 import infoblox
 
 # You must change the following URL to a valid instance of Infoblox.  I suggest using your lab/test env
-wapiurl = 'https://4.72.36.247/wapi/v1.7.1/'
+wapiurl = 'https://infoblox.example.com/wapi/v1.7.1/'
 wapiuser = 'admin'
 wapipass = 'infoblox'
 
