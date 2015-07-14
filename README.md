@@ -20,6 +20,8 @@ get infoblox.py working is to:
   - copy, move or link the file *infoblox.py*, located in the repository
     root directory, to your project directory
 
+*I am working on getting the infoblox module into PyPi so hopefully these steps will soon go away*
+
 ## Contributing
 
 Comments and enhancements are very welcome.
