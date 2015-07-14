@@ -8,7 +8,7 @@ It uses Python's request module to handle session caching and is very flexible.
 ## License
 
 [infoblox][] is released under the [GNU Lesser General Public License v3.0][],
-see the file LICENSE and LICESE.lesser for the license text.
+see the file LICENSE and LICENSE.lesser for the license text.
 
 ## Installation
 
