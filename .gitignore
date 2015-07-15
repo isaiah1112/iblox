@@ -1,2 +1,5 @@
 *.py[cod]
 doc/_build/
+infoblox.egg-info/
+dist/
+.idea/
