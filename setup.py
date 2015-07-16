@@ -19,7 +19,7 @@ setup(name='infoblox',
       classifiers=[
           'Programming Language :: Python',
           'Intended Audience :: Developers',
-          'License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)'
+          'License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)',
           'Development Status :: 5 - Production/Stable',
           'Topic :: Software Development :: Libraries :: Python Modules',
       ],
