@@ -14,6 +14,10 @@ see the file LICENSE and LICENSE.lesser for the license text.
 
 The most straightforward way to get the iblox module working for you is:
 
+> pip install iblox
+
+or
+
 > python setup.py install
 
 This will ensure that all the requirements are met.
