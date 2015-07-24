@@ -4,7 +4,7 @@
 
 from setuptools import setup
 
-setup(name='infoblox',
+setup(name='iblox',
       version='1.4.6',
       description='Python Infoblox WAPI Module',
       author='Jesse Almanrode',
@@ -17,10 +17,15 @@ setup(name='infoblox',
                         ],
       platforms='any',
       classifiers=[
-          'Programming Language :: Python',
           'Intended Audience :: Developers',
           'License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)',
           'Development Status :: 5 - Production/Stable',
+          'Operating System :: Unix',
+          'Programming Language :: Python',
+          'Programming Language :: Python :: 2',
+          'Programming Language :: Python :: 2.7',
+          'Topic :: Software Development',
+          'Topic :: Software Development :: Libraries',
           'Topic :: Software Development :: Libraries :: Python Modules',
       ],
       )

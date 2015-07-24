@@ -1,18 +1,18 @@
-# [infoblox][]
+# [iblox][]
 
 ## Overview
 
-[infoblox][] is a wrapper for [Infoblox's WAPI](https://www.infoblox.com/).
+[iblox][] is a wrapper for [Infoblox's WAPI](https://www.infoblox.com/).
 It uses Python's request module to handle session caching and is very flexible.
 
 ## License
 
-[infoblox][] is released under the [GNU Lesser General Public License v3.0][],
+[iblox][] is released under the [GNU Lesser General Public License v3.0][],
 see the file LICENSE and LICENSE.lesser for the license text.
 
 ## Installation
 
-The most straightforward way to get the infoblox module working for you is:
+The most straightforward way to get the iblox module working for you is:
 
 > python setup.py install
 
@@ -38,4 +38,4 @@ project](https://bitbucket.org/isaiah1112/infoblox/fork) and submit pull request
 
 [GNU Lesser General Public License v3.0]: http://choosealicense.com/licenses/lgpl-3.0/ "LGPL v3"
 
-[infoblox]: https://bitbucket.org/isaiah1112/infoblox "Infoblox Module"
+[iblox]: https://bitbucket.org/isaiah1112/infoblox "iblox Module"
