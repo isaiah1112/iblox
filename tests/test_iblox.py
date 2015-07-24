@@ -19,7 +19,7 @@ wapiuser = 'admin'
 wapipass = 'infoblox'
 
 
-class TestInfoblox(unittest.TestCase):
+class Testiblox(unittest.TestCase):
     def setUp(self):
         global wapiurl, wapiuser, wapipass
         self.iblox_conn = iblox.Infoblox(wapiurl, username=wapiuser, password=wapipass)

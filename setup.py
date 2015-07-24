@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # coding=utf-8
-"""Setup file for infoblox module"""
+"""Setup file for iblox module"""
 
 from setuptools import setup
 
