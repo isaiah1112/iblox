@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# infoblox documentation build configuration file, created by
+# iblox documentation build configuration file, created by
 # sphinx-quickstart on Wed Jul  8 10:03:19 2015.
 #
 # This file is execfile()d with the current directory set to its
@@ -49,10 +49,10 @@ source_suffix = '.rst'
 #source_encoding = 'utf-8-sig'
 
 # The master toctree document.
-master_doc = 'infoblox'
+master_doc = 'iblox'
 
 # General information about the project.
-project = u'infoblox'
+project = u'iblox'
 copyright = u'2015, Jesse Almanrode'
 author = u'Jesse Almanrode'
 
@@ -206,7 +206,7 @@ html_static_path = ['_static']
 #html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'infobloxdoc'
+htmlhelp_basename = 'ibloxdoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -228,7 +228,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'infoblox.tex', u'infoblox Documentation',
+  (master_doc, 'iblox.tex', u'iblox Documentation',
    u'Jesse Almanrode', 'manual'),
 ]
 
@@ -258,7 +258,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'infoblox', u'infoblox Documentation',
+    (master_doc, 'iblox', u'iblox Documentation',
      [author], 1)
 ]
 
@@ -272,8 +272,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  (master_doc, 'infoblox', u'infoblox Documentation',
-   author, 'infoblox', 'One line description of project.',
+  (master_doc, 'iblox', u'iblox Documentation',
+   author, 'iblox', 'One line description of project.',
    'Miscellaneous'),
 ]
 
