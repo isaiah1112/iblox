@@ -3,3 +3,4 @@ doc/_build/
 iblox.egg-info/
 dist/
 .idea/
+build/
