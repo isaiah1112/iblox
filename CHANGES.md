@@ -2,9 +2,8 @@
 
 ## Version 1.4.6
  * Fixed bugs in **add_alias** and **delete_alias** shortcuts
-
-## Version 1.4.5
- * Releasing As Open Source under LGPL v3+
+ * Renamed project to iblox (Infoblox as a module name was taken)
+ * Releasing as Open Source
 
 ## Version 1.4.4
  * Fixed Bug if *disable_warnings* property is not available in requests module

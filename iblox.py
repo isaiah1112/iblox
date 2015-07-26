@@ -58,7 +58,7 @@ class Infoblox(object):
 
         - **parameters** and **return types**::
 
-            :param uri: Full url to the infoblox WAPI
+            :param uri: Full url to the Infoblox WAPI
             :param username: Infoblox User with API Access
             :param password: Password for Infoblox User
             :param verify_ssl: Verify SSL Certificate
