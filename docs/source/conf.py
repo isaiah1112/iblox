@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # iblox documentation build configuration file, created by
-# sphinx-quickstart on Wed Jul  8 10:03:19 2015.
+# sphinx-quickstart on Thu Nov  5 15:24:53 2015.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -31,8 +31,6 @@ import shlex
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.doctest',
-    'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.viewcode',
 ]
@@ -49,7 +47,7 @@ source_suffix = '.rst'
 #source_encoding = 'utf-8-sig'
 
 # The master toctree document.
-master_doc = 'iblox'
+master_doc = 'index'
 
 # General information about the project.
 project = u'iblox'
@@ -80,7 +78,7 @@ language = None
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build']
+exclude_patterns = []
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -107,7 +105,7 @@ pygments_style = 'sphinx'
 #keep_warnings = False
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
-todo_include_todos = True
+todo_include_todos = False
 
 
 # -- Options for HTML output ----------------------------------------------
