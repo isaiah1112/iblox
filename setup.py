@@ -1,6 +1,7 @@
 #!/usr/bin/env python2
 # coding=utf-8
-"""Setup file for iblox module"""
+"""Setup file for iblox module
+"""
 
 from setuptools import setup
 
@@ -9,13 +10,13 @@ setup(name='iblox',
       description='Python Infoblox WAPI Module',
       author='Jesse Almanrode',
       author_email='jesse@almanrode.com',
-      url='https://bitbucket.org/isaiah1112/infoblox',
+      url='http://pydoc.jacomputing.net/infoblox/',
       py_modules=['iblox'],
       license='GNU Lesser General Public License v3 or later (LGPLv3+)',
       install_requires=['simplejson>=3.6.5',
                         'requests>=2.7.0',
                         ],
-      platforms='any',
+      platforms=['Mac OS X', 'RedHat/CentOS'],
       classifiers=[
           'Intended Audience :: Developers',
           'License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)',
