@@ -270,7 +270,7 @@ class Infoblox(object):
         else:
             ipv4addrs.append(ipv4addr_obj(ipaddr))
         newhost = {'objtype': 'record:host', 'name': fqdn, 'ipv4addrs': ipv4addrs, 'view': self.view}
-        for key, value in kwargs.iteritems():
+        for key, value in kwargs.items():
             newhost[key] = value
         return self.add(**newhost)
 
