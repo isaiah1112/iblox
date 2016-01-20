@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 # coding=utf-8
 """Unit Tests for iblox Python Module"""
 from __future__ import print_function
