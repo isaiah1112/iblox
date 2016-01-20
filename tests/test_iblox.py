@@ -1,16 +1,17 @@
 #!/usr/bin/env python2
 # coding=utf-8
 """Unit Tests for iblox Python Module"""
-__author__ = 'Jesse Almanrode'
-
+from __future__ import print_function
 import os
 import sys
 import unittest
 from simplejson.decoder import JSONDecodeError
 
-here = os.path.dirname(os.path.abspath(__file__))
-project = os.path.dirname(here)
-sys.path.append(project)
+
+__author__ = 'Jesse Almanrode'
+
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(project_root)
 import iblox
 
 # You must change the following URL to a valid instance of Infoblox.  I suggest using your lab/test env
@@ -26,19 +27,15 @@ class Testiblox(unittest.TestCase):
 
     def assert_zone_exists(self):
         result = self.iblox_conn.get(objtype='zone_auth', fqdn='unittest.example')
-        assert isinstance(result, list)
-        if len(result) == 0:
-            return False
-        else:
-            return True
+        self.assertIsInstance(result, list)
+        self.assertEqual(len(result), 0)
+        pass
 
     def assert_host_exists(self):
         result = self.iblox_conn.get(objtype='record:host', name='testhost.unittest.example')
-        assert isinstance(result, list)
-        if len(result) == 0:
-            return False
-        else:
-            return True
+        self.assertIsInstance(result, list)
+        self.assertEqual(len(result, 0))
+        pass
 
     def test_000_Login(self):
         try:

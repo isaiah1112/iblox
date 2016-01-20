@@ -47,7 +47,7 @@ def ipv4addr_obj(ipaddr, **kwargs):
     :return: ipvraddr dictionary with default values
     """
     ipv4_obj = {'configure_for_dhcp': False, 'ipv4addr': ipaddr}
-    for key, value in kwargs.iteritems():
+    for key, value in kwargs.items():
         ipv4_obj[key] = value
     return ipv4_obj
 
@@ -61,7 +61,7 @@ class Infoblox(object):
     :param verify_ssl: Verify SSL Certificate
     :return: Infoblox Object
 
-    :property view: The DNS view to add objects to (default is 'default')
+    :property view: The DNS view to add objects to (default == 'default')
         """
     def __init__(self, uri, username=None, password=None, verify_ssl=False):
         if uri.endswith("/") is False:

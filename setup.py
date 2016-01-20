@@ -6,7 +6,7 @@
 from setuptools import setup
 
 setup(name='iblox',
-      version='1.4.6',
+      version='1.5b',
       description='Python Infoblox WAPI Module',
       author='Jesse Almanrode',
       author_email='jesse@almanrode.com',
