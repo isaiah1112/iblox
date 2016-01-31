@@ -6,7 +6,7 @@
 from setuptools import setup
 
 setup(name='iblox',
-      version='1.4.6',
+      version='1.5b',
       description='Python Infoblox WAPI Module',
       author='Jesse Almanrode',
       author_email='jesse@almanrode.com',
@@ -25,6 +25,8 @@ setup(name='iblox',
           'Programming Language :: Python',
           'Programming Language :: Python :: 2',
           'Programming Language :: Python :: 2.7',
+          'Programming Language :: Python :: 3',
+          'Programming Language :: Python :: 3.5',
           'Topic :: Software Development',
           'Topic :: Software Development :: Libraries',
           'Topic :: Software Development :: Libraries :: Python Modules',
