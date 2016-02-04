@@ -86,6 +86,12 @@ class Infoblox(object):
     def __getitem__(self, item):
         return self.__dict__[item]
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        return None
+
     def _verify_(self, **kwargs):
         """Private method for verifying the named argument data and preparing it for a wapi call
 

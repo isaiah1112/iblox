@@ -8,7 +8,7 @@ Infoblox WAPI Python Module!
 
 .. automodule:: iblox
     :members: Infoblox, ipv4addr_obj
-        :private-members:
+    :private-members:
 
 Compatibility
 -------------
