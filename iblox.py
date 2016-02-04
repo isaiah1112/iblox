@@ -19,6 +19,7 @@ requests module as well as numerous shortcuts for manipulating objects within In
 
 import requests
 import json
+from collections import namedtuple
 
 
 class MissingRequiredArgument(Exception):
@@ -62,12 +63,14 @@ class Infoblox(object):
     :return: Infoblox Object
 
     :property view: The DNS view to add objects to (default == 'default')
-        """
+    """
+
     def __init__(self, uri, username=None, password=None, verify_ssl=False):
         if uri.endswith("/") is False:
             uri += "/"
         self.uri = uri
-        self.auth = (username, password)
+        auth = namedtuple('auth', ['username', 'password'])
+        self.auth = auth(username=username, password=password)
         self.verify = verify_ssl
         self._return_type = "json"  # This is what the WAPI defaults to
         self.returnTypes = ('json', 'json-pretty', 'xml', 'xml-pretty')
@@ -82,9 +85,6 @@ class Infoblox(object):
 
     def __str__(self):
         return str(self.__dict__)
-
-    def __getitem__(self, item):
-        return self.__dict__[item]
 
     def __enter__(self):
         return self
@@ -136,13 +136,6 @@ class Infoblox(object):
                 key = key.replace("_greaterthan", ">")
             newdict[key] = value
         return newdict
-
-    def keys(self):
-        """Get the keys/properties of the object
-        
-        :return: List of keys
-        """
-        return self.__dict__.keys()
 
     def get(self, **kwargs):
         """ Query the Infoblox WAPI
