@@ -2,6 +2,7 @@
 
 ## Version 1.5
  * Now compatible with Python 2.7.x and Python 3.5.x
+ * Infoblox object can now be used with Python's 'with' statement
 
 ## Version 1.4.6
  * Fixed bugs in **add_alias** and **delete_alias** shortcuts
