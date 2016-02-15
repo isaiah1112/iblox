@@ -1,20 +1,23 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 # coding=utf-8
 """Unit Tests for iblox Python Module"""
-__author__ = 'Jesse Almanrode'
-
+from __future__ import print_function
 import os
 import sys
 import unittest
+import warnings
+from builtins import str
 from simplejson.decoder import JSONDecodeError
 
-here = os.path.dirname(os.path.abspath(__file__))
-project = os.path.dirname(here)
-sys.path.append(project)
+
+__author__ = 'Jesse Almanrode'
+
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(project_root)
 import iblox
 
 # You must change the following URL to a valid instance of Infoblox.  I suggest using your lab/test env
-wapiurl = 'https://infoblox.example.com/wapi/v1.7.1/'
+wapiurl = 'https://192.168.2.3/wapi/v1.7.1/'
 wapiuser = 'admin'
 wapipass = 'infoblox'
 
@@ -26,7 +29,7 @@ class Testiblox(unittest.TestCase):
 
     def assert_zone_exists(self):
         result = self.iblox_conn.get(objtype='zone_auth', fqdn='unittest.example')
-        assert isinstance(result, list)
+        self.assertIsInstance(result, list)
         if len(result) == 0:
             return False
         else:
@@ -34,7 +37,7 @@ class Testiblox(unittest.TestCase):
 
     def assert_host_exists(self):
         result = self.iblox_conn.get(objtype='record:host', name='testhost.unittest.example')
-        assert isinstance(result, list)
+        self.assertIsInstance(result, list)
         if len(result) == 0:
             return False
         else:
@@ -53,38 +56,40 @@ class Testiblox(unittest.TestCase):
     def test_001_Add_Zone(self):
         self.assertFalse(self.assert_zone_exists())
         result = self.iblox_conn.add(objtype='zone_auth', fqdn='unittest.example')
-        self.assertIsInstance(result, unicode)
+        self.assertIsInstance(result, str)
 
     def test_002_Add_Host(self):
         self.assertTrue(self.assert_zone_exists())
         self.assertFalse(self.assert_host_exists())
-        result = self.iblox_conn.add_host('testhost.unittest.example', '192.168.2.2', comment='Created by test_infoblox.py')
-        self.assertIsInstance(result, unicode)
+        result = self.iblox_conn.add_host('testhost.unittest.example', '192.168.2.8',
+                                          comment='Created by test_infoblox.py')
+        self.assertIsInstance(result, str)
 
     def test_003_Add_Alias(self):
         self.assertTrue(self.assert_zone_exists())
         self.assertTrue(self.assert_host_exists())
         result = self.iblox_conn.add_alias('testhost.unittest.example', 'testalias.unittest.example')
-        self.assertIsInstance(result, unicode)
+        self.assertIsInstance(result, str)
 
     def test_004_Delete_Alias(self):
         self.assertTrue(self.assert_zone_exists())
         self.assertTrue(self.assert_host_exists())
         result = self.iblox_conn.delete_alias('testhost.unittest.example', 'testalias.unittest.example')
-        self.assertIsInstance(result, unicode)
+        self.assertIsInstance(result, str)
 
     def test_010_Delete_Host(self):
         self.assertTrue(self.assert_zone_exists())
         self.assertTrue(self.assert_host_exists())
         result = self.iblox_conn.get_host_by_name('testhost.unittest.example')[0]
         result = self.iblox_conn.delete(result['_ref'])
-        self.assertIsInstance(result, unicode)
+        self.assertIsInstance(result, str)
 
     def test_020_Delete_Zone(self):
         self.assertTrue(self.assert_zone_exists())
         zone = self.iblox_conn.get(objtype='zone_auth', fqdn='unittest.example')[0]
         result = self.iblox_conn.delete(zone['_ref'])
-        self.assertIsInstance(result, unicode)
+        self.assertIsInstance(result, str)
 
 if __name__ == '__main__':
-    unittest.main(failfast=True)
+    with warnings.catch_warnings(record=True):
+        unittest.main(failfast=True)
