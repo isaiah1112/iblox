@@ -154,7 +154,7 @@ class Infoblox(object):
         else:
             objtype = kwargs['objtype']
             del kwargs['objtype']
-            result = self.session.get(self.uri + objtype, auth=self.auth, verify=self.verify, data=kwargs)
+            result = self.session.get(self.uri + objtype, auth=self.auth, verify=self.verify, params=kwargs)
         if self._return_type == 'json':
             return result.json()
         else:
