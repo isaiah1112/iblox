@@ -37,7 +37,7 @@ tracker](https://bitbucket.org/isaiah1112/infoblox/issues?status=new&status=open
 towards.
 
 Code contributions are encouraged: please feel free to [fork the
-project](https://bitbucket.org/isaiah1112/infoblox/fork) and submit pull requests.
+project](https://bitbucket.org/isaiah1112/infoblox/fork) and submit pull requests to the develop branch.
 
 ## More information
 

@@ -17,7 +17,7 @@ sys.path.append(project_root)
 import iblox
 
 # You must change the following URL to a valid instance of Infoblox.  I suggest using your lab/test env
-wapiurl = 'https://192.168.2.3/wapi/v1.7.1/'
+wapiurl = 'https://192.168.2.3/wapi/v2.1.1/'
 wapiuser = 'admin'
 wapipass = 'infoblox'
 
