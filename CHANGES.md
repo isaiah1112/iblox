@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 1.5.1
+ * Use params= instead of data= for get requests - [Merge Request #1](https://bitbucket.org/isaiah1112/infoblox/pull-requests/1/use-params-instead-of-data-for-get/diff)
+
 ## Version 1.5
  * Now compatible with Python 2.7.x and Python 3.5.x
  * Infoblox object can now be used with Python's 'with' statement
