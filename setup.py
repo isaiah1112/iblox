@@ -6,15 +6,15 @@
 from setuptools import setup
 
 setup(name='iblox',
-      version='1.5.1',
+      version='1.5.2',
       description='Infoblox WAPI Module',
       author='Jesse Almanrode',
       author_email='jesse@almanrode.com',
       url='http://pydoc.jacomputing.net/infoblox/',
       py_modules=['iblox'],
       license='GNU Lesser General Public License v3 or later (LGPLv3+)',
-      install_requires=['simplejson>=3.6.5',
-                        'requests>=2.7.0',
+      install_requires=['simplejson==3.8.2',
+                        'requests==2.10.0',
                         ],
       platforms=['Mac OS X', 'RedHat/CentOS'],
       classifiers=[

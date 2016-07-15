@@ -92,7 +92,7 @@ class Infoblox(object):
     def __exit__(self, exc_type, exc_val, exc_tb):
         return None
 
-    def _verify_(self, **kwargs):
+    def verify(self, **kwargs):
         """Private method for verifying the named argument data and preparing it for a wapi call
 
         .. note::
@@ -147,7 +147,7 @@ class Infoblox(object):
         :param kwargs: Key/Value parameters
         :return: string of _return_type (json or xml)
         """
-        kwargs = self._verify_(**kwargs)
+        kwargs = self.__verify(**kwargs)
         nkeys = kwargs.keys()
         if "_ref" in nkeys:
             result = self.session.get(self.uri + kwargs['_ref'], auth=self.auth, verify=self.verify)
@@ -166,7 +166,7 @@ class Infoblox(object):
         :param kwargs: key/value parameters
         :return: string of _return_type (json or xml)
         """
-        kwargs = self._verify_(**kwargs)
+        kwargs = self.__verify(**kwargs)
         objtype = kwargs['objtype']
         del kwargs['objtype']
         result = self.session.post(self.uri + objtype, auth=self.auth, verify=self.verify, data=json.dumps(kwargs))
@@ -183,7 +183,7 @@ class Infoblox(object):
         :return: string of _return_type (json or xml)
         """
         kwargs['_ref'] = ref
-        kwargs = self._verify_(**kwargs)
+        kwargs = self.__verify(**kwargs)
         del kwargs['_ref']
         result = self.session.delete(self.uri + ref, auth=self.auth, verify=self.verify, data=json.dumps(kwargs))
         if self._return_type == 'json':
@@ -199,7 +199,7 @@ class Infoblox(object):
         :return: string of _return_type (json or xml)
         """
         kwargs['_ref'] = ref
-        kwargs = self._verify_(**kwargs)
+        kwargs = self.__verify(**kwargs)
         del kwargs['_ref']
         result = self.session.put(self.uri + ref, auth=self.auth, verify=self.verify, data=json.dumps(kwargs))
         if self._return_type == 'json':
@@ -217,7 +217,7 @@ class Infoblox(object):
         """
         _function = {'_function': func}
         kwargs['_ref'] = ref
-        kwargs = self._verify_(**kwargs)
+        kwargs = self.__verify(**kwargs)
         del kwargs['_ref']
         result = self.session.post(self.uri + ref, auth=self.auth, verify=self.verify,
                                    params=_function, data=json.dumps(kwargs))
@@ -233,10 +233,10 @@ class Infoblox(object):
         :return: string of _return_type (json or xml)
         """
         if "_ref" in kwargs.keys():
-            return self.get(**kwargs)
+            return self.__get(**kwargs)
         else:
             kwargs['objtype'] = "record:host"
-            return self.get(**kwargs)
+            return self.__get(**kwargs)
 
     def get_host_by_ip(self, ipaddr):
         """Shortcut for finding a host record by its primary IPV4 address
@@ -244,7 +244,7 @@ class Infoblox(object):
         :param ipaddr: IPV4 address
         :return: string of _return_type (json or xml)
         """
-        return self.get_host(ipv4addr=ipaddr)
+        return self.__get_host(ipv4addr=ipaddr)
 
     def get_host_by_name(self, fqdn):
         """Shortcut for finding a host record by its fully qualified domain name
@@ -252,7 +252,7 @@ class Infoblox(object):
         :param fqdn: Fully Qualified Domain Name
         :return: string of _return_type (json or xml)
         """
-        return self.get_host(name=fqdn)
+        return self.__get_host(name=fqdn)
 
     def add_host(self, fqdn, ipaddr, **kwargs):
         """Shortcut for adding a host record with an iPV4 address
@@ -271,7 +271,7 @@ class Infoblox(object):
         newhost = {'objtype': 'record:host', 'name': fqdn, 'ipv4addrs': ipv4addrs, 'view': self.view}
         for key, value in kwargs.items():
             newhost[key] = value
-        return self.add(**newhost)
+        return self.__add(**newhost)
 
     def add_host_ip(self, fqdn, ipaddr):
         """Shortcut for adding an ip to a given host
@@ -281,7 +281,7 @@ class Infoblox(object):
         :return: Modified host record
         """
         try:
-            host = self.get_host_by_name(fqdn)[0]
+            host = self.__get_host_by_name(fqdn)[0]
         except IndexError:
             raise HostNotFound("Unable to find host with name " + fqdn)
         if type(ipaddr) in (list, tuple):
@@ -289,7 +289,7 @@ class Infoblox(object):
                 host['ipv4addrs'].append(ipv4addr_obj(ip))
         else:
             host['ipv4addrs'].append(ipv4addr_obj(ipaddr))
-        return self.modify(host['_ref'], ipv4addrs=host['ipv4addrs'])
+        return self.__modify(host['_ref'], ipv4addrs=host['ipv4addrs'])
 
     def add_alias(self, fqdn, alias):
         """Shortcut for adding an alias/CNAME to a given host record
@@ -298,7 +298,7 @@ class Infoblox(object):
         :param alias: A fqdn name (or list of fqdns) to add as aliases/CNAMES
         :return: string of _return_type (json or xml)
         """
-        thishost = self.get_host(name=fqdn, _return_fields_plus="aliases")[0]
+        thishost = self.__get_host(name=fqdn, _return_fields_plus="aliases")[0]
         if 'aliases' not in thishost.keys():
             thishost['aliases'] = []
         if type(alias) in (list, tuple):
@@ -308,7 +308,7 @@ class Infoblox(object):
         else:
             if alias not in thishost['aliases']:
                 thishost['aliases'].append(alias)
-        return self.modify(thishost['_ref'], aliases=thishost['aliases'])
+        return self.__modify(thishost['_ref'], aliases=thishost['aliases'])
 
     def delete_alias(self, fqdn, alias):
         """Shortcut for adding an alias/CNAME to a given host record
@@ -317,7 +317,7 @@ class Infoblox(object):
         :param alias: The fqdn of the alias (or list of fqdns) you wish to remove
         :return: string of _return_type (json or xml)
         """
-        thishost = self.get_host(name=fqdn, _return_fields_plus='aliases')[0]
+        thishost = self.__get_host(name=fqdn, _return_fields_plus='aliases')[0]
         if 'aliases' not in thishost.keys():
             return thishost
         else:
@@ -327,4 +327,14 @@ class Infoblox(object):
                         thishost['aliases'].remove(name)
             else:
                 thishost['aliases'].remove(alias)
-            return self.modify(thishost['_ref'], aliases=thishost['aliases'])
+            return self.__modify(thishost['_ref'], aliases=thishost['aliases'])
+
+    # Allowing Infoblox to be subclassed while protecting internal calls
+    __verify = verify
+    __get = get
+    __add = add
+    __delete = delete
+    __modify = modify
+    __call = call
+    __get_host = get_host
+    __get_host_by_name = get_host_by_name

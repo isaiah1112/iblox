@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
-"""Unit Tests for iblox Python Module"""
+"""Integration and unit Tests for iblox Python Module"""
 from __future__ import print_function
 import os
 import sys
@@ -17,7 +17,7 @@ sys.path.append(project_root)
 import iblox
 
 # You must change the following URL to a valid instance of Infoblox.  I suggest using your lab/test env
-wapiurl = 'https://192.168.2.3/wapi/v2.1.1/'
+wapiurl = 'https://172.16.100.3/wapi/v2.3.1/'
 wapiuser = 'admin'
 wapipass = 'infoblox'
 
@@ -84,7 +84,7 @@ class Testiblox(unittest.TestCase):
         result = self.iblox_conn.delete(result['_ref'])
         self.assertIsInstance(result, str)
 
-    def test_020_Delete_Zone(self):
+    def test_999_Delete_Zone(self):
         self.assertTrue(self.assert_zone_exists())
         zone = self.iblox_conn.get(objtype='zone_auth', fqdn='unittest.example')[0]
         result = self.iblox_conn.delete(zone['_ref'])
