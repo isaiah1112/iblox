@@ -1,11 +1,14 @@
 # Changelog
 
+## Version 1.5.2
+ * Protecting internal calls so that Infoblox could be sublcassed if needed [150b89e](https://bitbucket.org/isaiah1112/infoblox/commits/150b89e38117f155131795d8b1164c1a002ef00b)
+
 ## Version 1.5.1
  * Use params= instead of data= for get requests - [Merge Request #1](https://bitbucket.org/isaiah1112/infoblox/pull-requests/1/use-params-instead-of-data-for-get/diff)
 
 ## Version 1.5
  * Now compatible with Python 2.7.x and Python 3.5.x
- * Infoblox object can now be used with Python's 'with' statement
+ * Infoblox class can now be used with Python's 'with' statement
 
 ## Version 1.4.6
  * Fixed bugs in **add_alias** and **delete_alias** shortcuts
@@ -26,7 +29,7 @@
 ## Version 1.4
  * Added **delete_alias** shortcut for deleting aliases/CNAMES from a host
  * Added **add_host_ip** shortcut for adding IPv4 Addresses to a host
- * Added object **view** property for specifying default view to use when creating objects
+ * Added **view** property for specifying default view to use when creating objects
  * Added kwarg modifiers for
   * _regex
   * _greaterthan
@@ -46,5 +49,5 @@
  * Renamed **find_host** with **get_host** for all methods
 
 ## Version 1.0
- * Created Infoblox object
+ * Created Infoblox class
  * Created add, get, delete, modify methods for Infoblox Python Module
