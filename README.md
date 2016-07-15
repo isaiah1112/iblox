@@ -22,9 +22,26 @@ or
 
 This will ensure that all the requirements are met.
 
+### Development Installation
+
+If you are wanting to work on development of iblox perform the following:
+
+> pip install -U -r requirements.txt
+
+To ensure all development requirements are met. This will allow you to build the Sphinx Documentation!
+
 ## Documentation
 
 Documentation for the iblox module can be found at [JA Computing](http://pydoc.jacomputing.net/infoblox/)
+
+### Building Docs
+
+If you have installed the requirements for iblox you can build its Sphinx Documentation simply by:
+
+> cd docs;
+> make html
+
+Then simply open **docs/build/html/index.html** in your browser.
 
 ## Contributing
 
