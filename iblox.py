@@ -48,8 +48,7 @@ def ipv4addr_obj(ipaddr, **kwargs):
     :return: ipvraddr dictionary with default values
     """
     ipv4_obj = {'configure_for_dhcp': False, 'ipv4addr': ipaddr}
-    for key, value in kwargs.items():
-        ipv4_obj[key] = value
+    ipv4_obj.update(kwargs)
     return ipv4_obj
 
 
@@ -269,8 +268,7 @@ class Infoblox(object):
         else:
             ipv4addrs.append(ipv4addr_obj(ipaddr))
         newhost = {'objtype': 'record:host', 'name': fqdn, 'ipv4addrs': ipv4addrs, 'view': self.view}
-        for key, value in kwargs.items():
-            newhost[key] = value
+        newhost.update(kwargs)
         return self.__add(**newhost)
 
     def add_host_ip(self, fqdn, ipaddr):
