@@ -263,8 +263,8 @@ class Infoblox(object):
         """
         ipv4addrs = []
         if type(ipaddr) in (list, tuple):
-            for ip in ipaddr:
-                ipv4addrs.append(ipv4addr_obj(ip))
+            for ip in map(ipv4addr_obj, ipaddr):
+                ipv4addrs.append(ip)
         else:
             ipv4addrs.append(ipv4addr_obj(ipaddr))
         newhost = {'objtype': 'record:host', 'name': fqdn, 'ipv4addrs': ipv4addrs, 'view': self.view}
@@ -283,8 +283,8 @@ class Infoblox(object):
         except IndexError:
             raise HostNotFound("Unable to find host with name " + fqdn)
         if type(ipaddr) in (list, tuple):
-            for ip in ipaddr:
-                host['ipv4addrs'].append(ipv4addr_obj(ip))
+            for ip in map(ipv4addr_obj, ipaddr):
+                host['ipv4addrs'].append(ip)
         else:
             host['ipv4addrs'].append(ipv4addr_obj(ipaddr))
         return self.__modify(host['_ref'], ipv4addrs=host['ipv4addrs'])
