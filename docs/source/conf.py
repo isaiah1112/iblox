@@ -162,6 +162,7 @@ html_static_path = ['_static']
 html_sidebars = {
     '**': [
         'about.html',
+        'globaltoc.html',
         'links.html',
     ]
 }
