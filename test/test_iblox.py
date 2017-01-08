@@ -29,7 +29,7 @@ class Testiblox(unittest.TestCase):
 
     def assert_zone_exists(self):
         result = self.iblox_conn.get(objtype='zone_auth', fqdn='unittest.example')
-        self.assertIsInstance(result, list)
+        self.assertTrue(isinstance(result, list))
         if len(result) == 0:
             return False
         else:
@@ -37,7 +37,7 @@ class Testiblox(unittest.TestCase):
 
     def assert_host_exists(self):
         result = self.iblox_conn.get(objtype='record:host', name='testhost.unittest.example')
-        self.assertIsInstance(result, list)
+        self.assertTrue(isinstance(result, list))
         if len(result) == 0:
             return False
         else:
@@ -49,46 +49,46 @@ class Testiblox(unittest.TestCase):
             if type(result) is dict:
                 self.fail(result['text'])
             elif type(result) is list:
-                self.assertIsInstance(result[0], dict)
+                self.assertTrue(isinstance(result[0], dict))
         except JSONDecodeError:
             self.fail('Unable to login to Infoblox instance')
 
     def test_001_Add_Zone(self):
         self.assertFalse(self.assert_zone_exists())
         result = self.iblox_conn.add(objtype='zone_auth', fqdn='unittest.example')
-        self.assertIsInstance(result, str)
+        self.assertTrue(isinstance(result, str))
 
     def test_002_Add_Host(self):
         self.assertTrue(self.assert_zone_exists())
         self.assertFalse(self.assert_host_exists())
         result = self.iblox_conn.add_host('testhost.unittest.example', '192.168.2.8',
                                           comment='Created by test_infoblox.py')
-        self.assertIsInstance(result, str)
+        self.assertTrue(isinstance(result, str))
 
     def test_003_Add_Alias(self):
         self.assertTrue(self.assert_zone_exists())
         self.assertTrue(self.assert_host_exists())
         result = self.iblox_conn.add_alias('testhost.unittest.example', 'testalias.unittest.example')
-        self.assertIsInstance(result, str)
+        self.assertTrue(isinstance(result, str))
 
     def test_004_Delete_Alias(self):
         self.assertTrue(self.assert_zone_exists())
         self.assertTrue(self.assert_host_exists())
         result = self.iblox_conn.delete_alias('testhost.unittest.example', 'testalias.unittest.example')
-        self.assertIsInstance(result, str)
+        self.assertTrue(isinstance(result, str))
 
     def test_010_Delete_Host(self):
         self.assertTrue(self.assert_zone_exists())
         self.assertTrue(self.assert_host_exists())
         result = self.iblox_conn.get_host_by_name('testhost.unittest.example')[0]
         result = self.iblox_conn.delete(result['_ref'])
-        self.assertIsInstance(result, str)
+        self.assertTrue(isinstance(result, str))
 
     def test_999_Delete_Zone(self):
         self.assertTrue(self.assert_zone_exists())
         zone = self.iblox_conn.get(objtype='zone_auth', fqdn='unittest.example')[0]
         result = self.iblox_conn.delete(zone['_ref'])
-        self.assertIsInstance(result, str)
+        self.assertTrue(isinstance(result, str))
 
 if __name__ == '__main__':
     with warnings.catch_warnings(record=True):

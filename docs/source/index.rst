@@ -63,7 +63,7 @@ If you are looking for examples of how the iblox module can be used be sure to c
 Compatibility
 -------------
 
-As of version 1.5, iblox now supports both Python 2.7 and 3.5.
+As of version 1.5, iblox now supports both Python 2.6, 2.7, 3.5, and 3.6
 
 Links
 -----
