@@ -4,7 +4,7 @@ Iblox API
 =========
 
 .. automodule:: iblox
-    :members: Infoblox, ipv4addr_obj
+    :members:
 
 
 
