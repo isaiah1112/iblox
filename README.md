@@ -32,7 +32,7 @@ To ensure all development requirements are met. This will allow you to build the
 
 ## Documentation
 
-Documentation for the iblox module can be found at [JA Computing](http://pydoc.jacomputing.net/infoblox/)
+Documentation for the iblox module can be found at http://pythonhosted.org/iblox
 
 ### Building Docs
 
