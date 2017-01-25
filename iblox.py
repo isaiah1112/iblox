@@ -22,24 +22,6 @@ import json
 from collections import namedtuple
 
 
-class MissingRequiredArgument(Exception):
-    """A required argument was missing from your statement
-    """
-    pass
-
-
-class HostNotFound(Exception):
-    """Unable to find host in Infoblox
-    """
-    pass
-
-
-class UnknownReturnType(Exception):
-    """You specified a return time that is not supported
-    """
-    pass
-
-
 def ipv4addr_obj(ipaddr, **kwargs):
     """ Create a new IPv4 Address dictionary
 
@@ -47,9 +29,8 @@ def ipv4addr_obj(ipaddr, **kwargs):
     :param kwargs: key/value options for ipv4addr object
     :return: ipvraddr dictionary with default values
     """
-    ipv4_obj = {'configure_for_dhcp': False, 'ipv4addr': ipaddr}
-    for key, value in kwargs.items():
-        ipv4_obj[key] = value
+    ipv4_obj = dict(configure_for_dhcp=False, ipv4addr=ipaddr)
+    ipv4_obj.update(kwargs)
     return ipv4_obj
 
 
@@ -112,11 +93,11 @@ class Infoblox(object):
         nkeys = kwargs.keys()
         if '_ref' not in nkeys and 'objtype' not in nkeys:
             if '_function' not in nkeys:
-                raise MissingRequiredArgument("objtype or _ref is required!")
+                raise ValueError("objtype or _ref is required!")
 
         if "_return_type" in nkeys:
             if kwargs['_return_type'] not in self.returnTypes:
-                raise UnknownReturnType(kwargs['_return_type'] + " is not a valid return type!")
+                raise ValueError(kwargs['_return_type'] + " is not a valid return type!")
             else:
                 self._return_type = kwargs['_return_type']
 
@@ -264,13 +245,12 @@ class Infoblox(object):
         """
         ipv4addrs = []
         if type(ipaddr) in (list, tuple):
-            for ip in ipaddr:
-                ipv4addrs.append(ipv4addr_obj(ip))
+            for ip in map(ipv4addr_obj, ipaddr):
+                ipv4addrs.append(ip)
         else:
             ipv4addrs.append(ipv4addr_obj(ipaddr))
-        newhost = {'objtype': 'record:host', 'name': fqdn, 'ipv4addrs': ipv4addrs, 'view': self.view}
-        for key, value in kwargs.items():
-            newhost[key] = value
+        newhost = dict(objtype='record:host', name=fqdn, ipv4addrs=ipv4addrs, view=self.view)
+        newhost.update(kwargs)
         return self.__add(**newhost)
 
     def add_host_ip(self, fqdn, ipaddr):
@@ -283,10 +263,10 @@ class Infoblox(object):
         try:
             host = self.__get_host_by_name(fqdn)[0]
         except IndexError:
-            raise HostNotFound("Unable to find host with name " + fqdn)
+            raise IndexError("Unable to find host with name " + fqdn)
         if type(ipaddr) in (list, tuple):
-            for ip in ipaddr:
-                host['ipv4addrs'].append(ipv4addr_obj(ip))
+            for ip in map(ipv4addr_obj, ipaddr):
+                host['ipv4addrs'].append(ip)
         else:
             host['ipv4addrs'].append(ipv4addr_obj(ipaddr))
         return self.__modify(host['_ref'], ipv4addrs=host['ipv4addrs'])
