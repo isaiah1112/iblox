@@ -6,11 +6,11 @@
 from setuptools import setup
 
 setup(name='iblox',
-      version='1.5.3',
+      version='1.5.4',
       description='Infoblox WAPI Module',
       author='Jesse Almanrode',
       author_email='jesse@almanrode.com',
-      url='http://pythonhosted.org/iblox',
+      url='http://iblox.readthedocs.io/',
       py_modules=['iblox'],
       license='GNU Lesser General Public License v3 or later (LGPLv3+)',
       install_requires=['future==0.16.0',
