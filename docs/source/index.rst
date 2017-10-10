@@ -46,7 +46,7 @@ created.
 API Documentation
 -----------------
 
-To learn what calls are available when accssing the WAPI via an Infoblox instance, please read up on the iblox API:
+To learn what calls are available when accessing the WAPI via an Infoblox instance, please read up on the iblox API:
 
 .. toctree::
    :maxdepth: 1
@@ -63,7 +63,7 @@ If you are looking for examples of how the iblox module can be used be sure to c
 Compatibility
 -------------
 
-As of version 1.5.3, iblox is supported under Python 2.6, 2.7, 3.5, and 3.6
+As of version 1.5.4, iblox is supported under Python 2.7 and 3.6.
 
 Links
 -----

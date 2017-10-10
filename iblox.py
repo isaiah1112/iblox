@@ -2,7 +2,7 @@
 """A Python Module for interacting with the Infoblox WAPI.  The module supports auth sessions via the
 requests module as well as numerous shortcuts for manipulating objects within Infoblox.
 """
-# Copyright (C) 2015 Jesse Almanrode
+# Copyright (C) 2015-2017 Jesse Almanrode
 #
 #     This program is free software: you can redistribute it and/or modify
 #     it under the terms of the GNU Lesser General Public License as published by
@@ -77,9 +77,9 @@ class Infoblox(object):
         """Private method for verifying the named argument data and preparing it for a wapi call
 
         .. note::
-            
+
             Key modifiers will also be fixed if the key ends in one of the following strings:
-                
+
                 * _plus = +
                 * _regex = ~
                 * _notequal = !
