@@ -1,0 +1,4 @@
+-rrequirements.txt
+tox==2.9.1
+simplejson==3.11.1
+future==0.16.0
