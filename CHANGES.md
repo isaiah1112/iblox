@@ -1,5 +1,10 @@
 # Changelog
 
+## Release v1.5.5
+ * fix tests requirements. [73a4c6c]
+ * Add requirements.txt for docs and test. [20b5b7f]
+ * Dropping testing for Python2.6 and Python3.5.  Gotta keep people moving up in the world. [08b0d44]
+
 ## Release v1.5.4
  * Updated documentation hosting [57310db]
 
