@@ -3,11 +3,11 @@
 """Integration and unit Tests for iblox Python Module"""
 from __future__ import print_function
 import os
+import requests_mock
 import sys
 import unittest
 import warnings
 from builtins import str
-from simplejson.decoder import JSONDecodeError
 
 
 __author__ = 'Jesse Almanrode'
@@ -16,79 +16,75 @@ project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(project_root)
 import iblox
 
-# You must change the following URL to a valid instance of Infoblox.  I suggest using your lab/test env
-wapiurl = 'https://172.16.100.3/wapi/v2.3.1/'
-wapiuser = 'admin'
-wapipass = 'infoblox'
 
-
+@requests_mock.Mocker()
 class Testiblox(unittest.TestCase):
+
     def setUp(self):
-        global wapiurl, wapiuser, wapipass
-        self.iblox_conn = iblox.Infoblox(wapiurl, username=wapiuser, password=wapipass)
+        """ Even though this looks like a real connection, it isn't
+        """
+        self.iblox_conn = iblox.Infoblox('https://localhost/wapi/v2.3.1', username='admin', password='infoblox')
 
-    def assert_zone_exists(self):
-        result = self.iblox_conn.get(objtype='zone_auth', fqdn='unittest.example')
+    def test_get(self, mock_adapter):
+        """ Test Infoblox.get method
+        """
+        mock_adapter.get(requests_mock.ANY, json=[{'_ref': 'view/ZG5zLnZpZXckLl9kZWZhdWx0:default/true', 'is_default': True, 'name': 'default'}])
+        result = self.iblox_conn.get(objtype='view', name='default')
         self.assertTrue(isinstance(result, list))
-        if len(result) == 0:
-            return False
-        else:
-            return True
+        self.assertEquals(len(result), 1)
+        self.assertTrue(isinstance(result[0], dict))
+        self.assertEquals(result[0]['_ref'], 'view/ZG5zLnZpZXckLl9kZWZhdWx0:default/true')
+        pass
 
-    def assert_host_exists(self):
-        result = self.iblox_conn.get(objtype='record:host', name='testhost.unittest.example')
-        self.assertTrue(isinstance(result, list))
-        if len(result) == 0:
-            return False
-        else:
-            return True
-
-    def test_000_Login(self):
-        try:
-            result = self.iblox_conn.get(objtype='view', name='default')
-            if type(result) is dict:
-                self.fail(result['text'])
-            elif type(result) is list:
-                self.assertTrue(isinstance(result[0], dict))
-        except JSONDecodeError:
-            self.fail('Unable to login to Infoblox instance')
-
-    def test_001_Add_Zone(self):
-        self.assertFalse(self.assert_zone_exists())
+    def test_add(self, mock_adapter):
+        """ Test Infoblox.add method
+        """
+        mock_adapter.post(requests_mock.ANY, json='zone_auth/ZG5zLnpvbmUkLl9kZWZhdWx0LmV4YW1wbGUudW5pdHRlc3Q:unittest.example/default')
         result = self.iblox_conn.add(objtype='zone_auth', fqdn='unittest.example')
         self.assertTrue(isinstance(result, str))
+        self.assertEquals(result, 'zone_auth/ZG5zLnpvbmUkLl9kZWZhdWx0LmV4YW1wbGUudW5pdHRlc3Q:unittest.example/default')
+        pass
 
-    def test_002_Add_Host(self):
-        self.assertTrue(self.assert_zone_exists())
-        self.assertFalse(self.assert_host_exists())
-        result = self.iblox_conn.add_host('testhost.unittest.example', '192.168.2.8',
-                                          comment='Created by test_infoblox.py')
+    def test_add_host(self, mock_adapter):
+        """ Test Infoblox.add_host method
+        """
+        mock_adapter.post(requests_mock.ANY, json='record:host/ZG5zLmhvc3QkLl9kZWZhdWx0LmV4YW1wbGUudW5pdHRlc3QudGVzdGhvc3Q:testhost.unittest.example/default')
+        result = self.iblox_conn.add_host('testhost.unittest.example', '192.168.2.8', comment='Created by test_infoblox.py')
         self.assertTrue(isinstance(result, str))
+        self.assertEquals(result, 'record:host/ZG5zLmhvc3QkLl9kZWZhdWx0LmV4YW1wbGUudW5pdHRlc3QudGVzdGhvc3Q:testhost.unittest.example/default')
+        pass
 
-    def test_003_Add_Alias(self):
-        self.assertTrue(self.assert_zone_exists())
-        self.assertTrue(self.assert_host_exists())
+    def test_add_alias(self, mock_adapter):
+        """ Test Infoblox.add_alias method
+        """
+        mock_adapter.get(requests_mock.ANY, json=[{'_ref': 'record:host/ZG5zLmhvc3QkLl9kZWZhdWx0LmV4YW1wbGUudW5pdHRlc3QudGVzdGhvc3Q:testhost.unittest.example/default', 'ipv4addrs': [{'_ref': 'record:host_ipv4addr/ZG5zLmhvc3RfYWRkcmVzcyQuX2RlZmF1bHQuZXhhbXBsZS51bml0dGVzdC50ZXN0aG9zdC4xOTIuMTY4LjIuOC4:192.168.2.8/testhost.unittest.example/default', 'configure_for_dhcp': False, 'host': 'testhost.unittest.example', 'ipv4addr': '192.168.2.8'}], 'name': 'testhost.unittest.example', 'view': 'default'}])
+        mock_adapter.put(requests_mock.ANY, json='record:host/ZG5zLmhvc3QkLl9kZWZhdWx0LmV4YW1wbGUudW5pdHRlc3QudGVzdGhvc3Q:testhost.unittest.example/default')
         result = self.iblox_conn.add_alias('testhost.unittest.example', 'testalias.unittest.example')
         self.assertTrue(isinstance(result, str))
+        self.assertEquals(result, 'record:host/ZG5zLmhvc3QkLl9kZWZhdWx0LmV4YW1wbGUudW5pdHRlc3QudGVzdGhvc3Q:testhost.unittest.example/default')
+        pass
 
-    def test_004_Delete_Alias(self):
-        self.assertTrue(self.assert_zone_exists())
-        self.assertTrue(self.assert_host_exists())
+    def test_delete_alias(self, mock_adapter):
+        """ Test Infoblox.delete_alias method
+        """
+        mock_adapter.get(requests_mock.ANY, json=[{'_ref': 'record:host/ZG5zLmhvc3QkLl9kZWZhdWx0LmV4YW1wbGUudW5pdHRlc3QudGVzdGhvc3Q:testhost.unittest.example/default', 'ipv4addrs': [{'_ref': 'record:host_ipv4addr/ZG5zLmhvc3RfYWRkcmVzcyQuX2RlZmF1bHQuZXhhbXBsZS51bml0dGVzdC50ZXN0aG9zdC4xOTIuMTY4LjIuOC4:192.168.2.8/testhost.unittest.example/default', 'configure_for_dhcp': False, 'host': 'testhost.unittest.example', 'ipv4addr': '192.168.2.8'}], 'name': 'testhost.unittest.example', 'view': 'default'}])
+        mock_adapter.delete(requests_mock.ANY, json='record:host/ZG5zLmhvc3QkLl9kZWZhdWx0LmV4YW1wbGUudW5pdHRlc3QudGVzdGhvc3Q:testhost.unittest.example/default')
         result = self.iblox_conn.delete_alias('testhost.unittest.example', 'testalias.unittest.example')
-        self.assertTrue(isinstance(result, str))
+        self.assertTrue(isinstance(result, dict))
+        self.assertEquals(result['_ref'], 'record:host/ZG5zLmhvc3QkLl9kZWZhdWx0LmV4YW1wbGUudW5pdHRlc3QudGVzdGhvc3Q:testhost.unittest.example/default')
+        pass
 
-    def test_010_Delete_Host(self):
-        self.assertTrue(self.assert_zone_exists())
-        self.assertTrue(self.assert_host_exists())
+    def test_delete_host(self, mock_adapter):
+        """ Test Infoblox.delete_host method
+        """
+        mock_adapter.get(requests_mock.ANY, json=[{'_ref': 'record:host/ZG5zLmhvc3QkLl9kZWZhdWx0LmV4YW1wbGUudW5pdHRlc3QudGVzdGhvc3Q:testhost.unittest.example/default', 'ipv4addrs': [{'_ref': 'record:host_ipv4addr/ZG5zLmhvc3RfYWRkcmVzcyQuX2RlZmF1bHQuZXhhbXBsZS51bml0dGVzdC50ZXN0aG9zdC4xOTIuMTY4LjIuOC4:192.168.2.8/testhost.unittest.example/default', 'configure_for_dhcp': False, 'host': 'testhost.unittest.example', 'ipv4addr': '192.168.2.8'}], 'name': 'testhost.unittest.example', 'view': 'default'}])
+        mock_adapter.delete(requests_mock.ANY, json='record:host/ZG5zLmhvc3QkLl9kZWZhdWx0LmV4YW1wbGUudW5pdHRlc3QudGVzdGhvc3Q:testhost.unittest.example/default')
         result = self.iblox_conn.get_host_by_name('testhost.unittest.example')[0]
         result = self.iblox_conn.delete(result['_ref'])
         self.assertTrue(isinstance(result, str))
+        self.assertEquals(result, 'record:host/ZG5zLmhvc3QkLl9kZWZhdWx0LmV4YW1wbGUudW5pdHRlc3QudGVzdGhvc3Q:testhost.unittest.example/default')
+        pass
 
-    def test_999_Delete_Zone(self):
-        self.assertTrue(self.assert_zone_exists())
-        zone = self.iblox_conn.get(objtype='zone_auth', fqdn='unittest.example')[0]
-        result = self.iblox_conn.delete(zone['_ref'])
-        self.assertTrue(isinstance(result, str))
 
 if __name__ == '__main__':
     with warnings.catch_warnings(record=True):
