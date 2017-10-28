@@ -26,7 +26,7 @@ This will ensure that all the requirements are met.
 
 If you are wanting to work on development of iblox perform the following:
 
-> pip install -U -r requirements.txt
+> pip install -U -r requirements_test.txt
 
 To ensure all development requirements are met. This will allow you to build the Sphinx Documentation!
 
@@ -38,6 +38,7 @@ Documentation for the iblox module can be found at http://iblox.readthedocs.io/
 
 If you have installed the requirements for iblox you can build its Sphinx Documentation simply by:
 
+> pip install -U -r requirements_docs.txt
 > cd docs;
 > make html
 
@@ -54,7 +55,7 @@ tracker](https://bitbucket.org/isaiah1112/infoblox/issues?status=new&status=open
 towards.
 
 Code contributions are encouraged: please feel free to [fork the
-project](https://bitbucket.org/isaiah1112/infoblox/fork) and submit pull requests to the develop branch.
+project](https://bitbucket.org/isaiah1112/infoblox/fork) and submit pull requests to the **develop** branch.
 
 ## More information
 
