@@ -25,6 +25,23 @@ class Testiblox(unittest.TestCase):
         """
         self.iblox_conn = iblox.Infoblox('https://localhost/wapi/v2.3.1', username='admin', password='infoblox')
 
+    def test_verify(self, mock_adapter):
+        """ Test Infoblox.verify method
+        """
+        result = self.iblox_conn.verify(objtype='host', name_regex='test.*', _return_type='json')
+        self.assertTrue(isinstance(result, dict))
+        self.assertIn('name~', result.keys())
+        pass
+
+    def test_ipv4addr_obj(self, mock_adapter):
+        """ Test iblox.ipv4addr_obj function
+        """
+        result = iblox.ipv4addr_obj('192.168.0.1', configure_for_dhcp=True)
+        self.assertTrue(isinstance(result, dict))
+        self.assertEquals(result['configure_for_dhcp'], True)
+        self.assertEquals(result['ipv4addr'], '192.168.0.1')
+        pass
+
     def test_get(self, mock_adapter):
         """ Test Infoblox.get method
         """
