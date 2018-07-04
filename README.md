@@ -1,9 +1,14 @@
 ## Overview
 
 [iblox][] is a wrapper for [Infoblox's WAPI](https://www.infoblox.com/).
-It uses Python's request module to handle session caching and is very flexible.
+It uses Python's request module to handle session caching and is very flexible. In order to maintain the most amount of
+compatibility we test iblox using the following versions of Python:
 
-As of version 1.5.5, iblox is compatible with both Python 2.7.x and Python 3.6.x!
+* Python2.7
+* Python3.4
+* Python3.5
+* Python3.6
+* Python3.7
 
 ## License
 
