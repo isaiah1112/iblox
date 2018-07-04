@@ -1,5 +1,21 @@
 # Changelog
 
+## Release v1.5.6
+ * Forgot to update CHANGES.md [80f03cf]
+ * Unit tests now use requests_mock module. [f46aac5]
+ * Added a few more unittests. [6491f0b]
+ * Fixing bug where Infoblox.verify conflicting with Infoblox.verify() [ff4d3ad]
+ * Adding bitbucket-pipelines script.  Updating requirements for simplicity. [bab91f2]
+ * Updating README.md [82b80a6]
+ * Adding caches and documentation builds to bitbucket-pipelines. [3d07196]
+ * Adding Python3.7 to the testing suite [bd09be1]
+ * Updating versions of Python tested [6addf7a]
+
+## Release v1.5.5
+ * fix tests requirements. [73a4c6c]
+ * Add requirements.txt for docs and test. [20b5b7f]
+ * Dropping testing for Python2.6 and Python3.5.  Gotta keep people moving up in the world. [08b0d44]
+
 ## Release v1.5.4
  * Updated documentation hosting [57310db]
 

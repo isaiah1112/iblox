@@ -2,7 +2,7 @@
 """A Python Module for interacting with the Infoblox WAPI.  The module supports auth sessions via the
 requests module as well as numerous shortcuts for manipulating objects within Infoblox.
 """
-# Copyright (C) 2015-2017 Jesse Almanrode
+# Copyright (C) 2015-2018 Jesse Almanrode
 #
 #     This program is free software: you can redistribute it and/or modify
 #     it under the terms of the GNU Lesser General Public License as published by
@@ -52,7 +52,7 @@ class Infoblox(object):
         self.uri = uri
         auth = namedtuple('auth', ['username', 'password'])
         self.auth = auth(username=username, password=password)
-        self.verify = verify_ssl
+        self.verify_ssl = verify_ssl
         self._return_type = "json"  # This is what the WAPI defaults to
         self.returnTypes = ('json', 'json-pretty', 'xml', 'xml-pretty')
         self.session = requests.Session()
@@ -131,11 +131,11 @@ class Infoblox(object):
         kwargs = self.__verify(**kwargs)
         nkeys = kwargs.keys()
         if "_ref" in nkeys:
-            result = self.session.get(self.uri + kwargs['_ref'], auth=self.auth, verify=self.verify)
+            result = self.session.get(self.uri + kwargs['_ref'], auth=self.auth, verify=self.verify_ssl)
         else:
             objtype = kwargs['objtype']
             del kwargs['objtype']
-            result = self.session.get(self.uri + objtype, auth=self.auth, verify=self.verify, params=kwargs)
+            result = self.session.get(self.uri + objtype, auth=self.auth, verify=self.verify_ssl, params=kwargs)
         if self._return_type == 'json':
             return result.json()
         else:
@@ -150,7 +150,7 @@ class Infoblox(object):
         kwargs = self.__verify(**kwargs)
         objtype = kwargs['objtype']
         del kwargs['objtype']
-        result = self.session.post(self.uri + objtype, auth=self.auth, verify=self.verify, data=json.dumps(kwargs))
+        result = self.session.post(self.uri + objtype, auth=self.auth, verify=self.verify_ssl, data=json.dumps(kwargs))
         if self._return_type == 'json':
             return result.json()
         else:
@@ -166,7 +166,7 @@ class Infoblox(object):
         kwargs['_ref'] = ref
         kwargs = self.__verify(**kwargs)
         del kwargs['_ref']
-        result = self.session.delete(self.uri + ref, auth=self.auth, verify=self.verify, data=json.dumps(kwargs))
+        result = self.session.delete(self.uri + ref, auth=self.auth, verify=self.verify_ssl, data=json.dumps(kwargs))
         if self._return_type == 'json':
             return result.json()
         else:
@@ -182,7 +182,7 @@ class Infoblox(object):
         kwargs['_ref'] = ref
         kwargs = self.__verify(**kwargs)
         del kwargs['_ref']
-        result = self.session.put(self.uri + ref, auth=self.auth, verify=self.verify, data=json.dumps(kwargs))
+        result = self.session.put(self.uri + ref, auth=self.auth, verify=self.verify_ssl, data=json.dumps(kwargs))
         if self._return_type == 'json':
             return result.json()
         else:
@@ -200,7 +200,7 @@ class Infoblox(object):
         kwargs['_ref'] = ref
         kwargs = self.__verify(**kwargs)
         del kwargs['_ref']
-        result = self.session.post(self.uri + ref, auth=self.auth, verify=self.verify,
+        result = self.session.post(self.uri + ref, auth=self.auth, verify=self.verify_ssl,
                                    params=_function, data=json.dumps(kwargs))
         if self._return_type == 'json':
             return result.json()

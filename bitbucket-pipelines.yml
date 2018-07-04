@@ -1,0 +1,73 @@
+image: python:latest
+
+pipelines:
+  default:
+      - step:
+          name: Python2.7
+          image: python:2.7
+          script:
+            - pip install -U tox
+            - tox -e py27
+          caches:
+            - pip
+      - step:
+          name: Python3.7
+          images: python:3.7
+          script:
+            - pip install -U tox
+            - tox -e py37
+          caches:
+            - pip
+  branches:
+    master:
+      - step:
+          name: Python2.7
+          image: python:2.7
+          script:
+            - pip install -U tox
+            - tox -e py27
+          caches:
+            - pip
+      - step:
+          name: Python3.4
+          images: python:3.4
+          script:
+            - pip install -U tox
+            - tox -e py34
+          caches:
+            - pip
+      - step:
+          name: Python3.5
+          images: python:3.5
+          script:
+            - pip install -U tox
+            - tox -e py35
+          caches:
+            - pip
+      - step:
+          name: Python3.6
+          images: python:3.6
+          script:
+            - pip install -U tox
+            - tox -e py36
+          caches:
+            - pip
+      - step:
+          name: Python3.7
+          images: python:3.7
+          script:
+            - pip install -U tox
+            - tox -e py37
+          caches:
+            - pip
+      - step:
+          name: Documentation
+          script:
+            - pip install -U tox
+            - tox -e docs
+          caches:
+            - pip
+      - step:
+          name: Deploy To PyPi
+          script:
+            - bash -e deploy.bash
