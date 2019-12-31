@@ -2,7 +2,7 @@
 """A Python Module for interacting with the Infoblox WAPI.  The module supports auth sessions via the
 requests module as well as numerous shortcuts for manipulating objects within Infoblox.
 """
-# Copyright (C) 2015-2018 Jesse Almanrode
+# Copyright (C) 2015-2020 Jesse Almanrode
 #
 #     This program is free software: you can redistribute it and/or modify
 #     it under the terms of the GNU Lesser General Public License as published by
