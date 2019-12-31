@@ -1,5 +1,8 @@
 # Changelog
 
+## Release v1.5.7
+ * Added testing support for Python3.8 [1a0a149]
+
 ## Release v1.5.6
  * Forgot to update CHANGES.md [80f03cf]
  * Unit tests now use requests_mock module. [f46aac5]
