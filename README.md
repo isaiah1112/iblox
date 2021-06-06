@@ -10,6 +10,7 @@ compatibility we test iblox using the following versions of Python:
 * Python3.6
 * Python3.7
 * Python3.8
+* Python3.9
 
 ## License
 
