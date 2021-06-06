@@ -1,5 +1,9 @@
 # Changelog
 
+## Release v1.5.8
+ * Added Python3.9 to testing [64111eb]
+ * Migrating PyPI deployment to use twine [2f92be4]
+
 ## Release v1.5.7
  * Added testing support for Python3.8 [1a0a149]
 
