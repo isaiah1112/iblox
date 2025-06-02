@@ -1,6 +1,6 @@
-## Overview
+![Logo](docs/source/_static/iblox.png "iblox")
 
-[iblox][] is a wrapper for [Infoblox's WAPI](https://www.infoblox.com/).
+A Python module for interacting with [Infoblox's WAPI](https://www.infoblox.com/).
 It uses Python's request module to handle session caching and is very flexible. In order to maintain the most amount of
 compatibility we test iblox using the following versions of Python:
 
