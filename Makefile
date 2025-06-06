@@ -6,6 +6,7 @@ UV_PATH := $(shell which uv 2>/dev/null)
 
 .PHONY: docs
 docs: init
+	@uv export --group docs --format requirements.txt --no-hashes -o docs/requirements.txt
 	@uv run --group docs sphinx-build -b html docs/source/ docs/build/html/
 
 .PHONY: test
