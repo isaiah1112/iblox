@@ -2,89 +2,79 @@ image: python:latest
 
 pipelines:
   default:
-      - step:
-          name: Python2.7
-          image: python:2.7
-          script:
-            - pip install -U tox
-            - tox -e py27
-          caches:
+    - step: &lint
+        name: Lint using Ruff
+        script:
+          - pip install uv
+          - uv run --group dev ruff check --exit-zero sshreader/
+        caches:
             - pip
-      - step:
-          name: Python3.9
-          image: python:3.9
-          script:
-            - pip install -U tox
-            - tox -e py39
-          caches:
-            - pip
+    - step: &py39
+        name: Python 3.9 Tests
+        image: python:3.9
+        script:
+          - pip install uv
+          - uv run --group dev python -m unittest discover tests/
+        caches:
+          - pip
+    - step: &py310
+        name: Python 3.10 Tests
+        image: python:3.10
+        script:
+          - pip install uv
+          - uv run --group dev python -m unittest discover tests/
+        caches:
+          - pip
+    - step: &py311
+        name: Python 3.11 Tests
+        image: python:3.11
+        script:
+          - pip install uv
+          - uv run --group dev python -m unittest discover tests/
+        caches:
+          - pip
+    - step: &py312
+        name: Python 3.12 Tests
+        image: python:3.12
+        script:
+          - pip install uv
+          - uv run --group dev python -m unittest discover tests/
+        caches:
+          - pip
+    - step: &py313
+        name: Python 3.13 Tests
+        image: python:3.13
+        script:
+          - pip install uv
+          - uv run --group dev python -m unittest discover tests/
+        caches:
+          - pip
   branches:
+    release/*:
+      - step: *lint
+      - step: *py39
+      - step: *py310
+      - step: *py311
+      - step: *py312
+      - step: *py313
+      - step:
+          name: Deploy To Test PyPi
+          trigger: manual
+          script:
+            - pip install uv
+            - uv build && uv publish --index test-pypi --username __token__ --password ${TEST_PYPI_PASSWORD}
+          caches:
+            - pip
     master:
-      - step:
-          name: Python2.7
-          image: python:2.7
-          script:
-            - pip install -U tox
-            - tox -e py27
-          caches:
-            - pip
-      - step:
-          name: Python3.4
-          image: python:3.4
-          script:
-            - pip install -U tox
-            - tox -e py34
-          caches:
-            - pip
-      - step:
-          name: Python3.5
-          image: python:3.5
-          script:
-            - pip install -U tox
-            - tox -e py35
-          caches:
-            - pip
-      - step:
-          name: Python3.6
-          image: python:3.6
-          script:
-            - pip install -U tox
-            - tox -e py36
-          caches:
-            - pip
-      - step:
-          name: Python3.7
-          image: python:3.7
-          script:
-            - pip install -U tox
-            - tox -e py37
-          caches:
-            - pip
-      - step:
-          name: Python3.8
-          image: python:3.8
-          script:
-            - pip install -U tox
-            - tox -e py38
-          caches:
-            - pip
-      - step:
-          name: Python3.9
-          image: python:3.9
-          script:
-            - pip install -U tox
-            - tox -e py39
-          caches:
-            - pip
-      - step:
-          name: Documentation
-          script:
-            - pip install -U tox
-            - tox -e docs
-          caches:
-            - pip
+      - step: *lint
+      - step: *py310
+      - step: *py311
+      - step: *py312
+      - step: *py313
       - step:
           name: Deploy To PyPi
           script:
-            - pip install twine
-            - bash -e deploy.bash
+            - pip install uv
+            - uv build && uv publish --username __token__ --password ${PYPI_PASSWORD}
+          caches:
+            - pip
