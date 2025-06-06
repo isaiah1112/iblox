@@ -14,7 +14,7 @@ pipelines:
         image: python:3.9
         script:
           - pip install uv
-          - uv run --group dev python -m unittest discover tests/
+          - uv run --group dev python -m unittest discover test/
         caches:
           - pip
     - step: &py310
@@ -22,7 +22,7 @@ pipelines:
         image: python:3.10
         script:
           - pip install uv
-          - uv run --group dev python -m unittest discover tests/
+          - uv run --group dev python -m unittest discover test/
         caches:
           - pip
     - step: &py311
@@ -30,7 +30,7 @@ pipelines:
         image: python:3.11
         script:
           - pip install uv
-          - uv run --group dev python -m unittest discover tests/
+          - uv run --group dev python -m unittest discover test/
         caches:
           - pip
     - step: &py312
@@ -38,7 +38,7 @@ pipelines:
         image: python:3.12
         script:
           - pip install uv
-          - uv run --group dev python -m unittest discover tests/
+          - uv run --group dev python -m unittest discover test/
         caches:
           - pip
     - step: &py313
@@ -46,7 +46,7 @@ pipelines:
         image: python:3.13
         script:
           - pip install uv
-          - uv run --group dev python -m unittest discover tests/
+          - uv run --group dev python -m unittest discover test/
         caches:
           - pip
   branches:
