@@ -1,0 +1,55 @@
+[project]
+name = "iblox"
+version = "1.6.0"
+description = "Infoblox WAPI Module"
+readme = "README.md"
+license = "LGPL-3.0-or-later"
+authors = [
+    { name = "Jesse Almanrode", email = "jesse@almanrode.com" }
+]
+classifiers = [
+    "Programming Language :: Python",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
+    "Development Status :: 5 - Production/Stable",
+          'Programming Language :: Python',
+          'Programming Language :: Python :: 2',
+          'Programming Language :: Python :: 2.7',
+          'Programming Language :: Python :: 3',
+          'Programming Language :: Python :: 3.4',
+          'Programming Language :: Python :: 3.5',
+          'Programming Language :: Python :: 3.6',
+          'Programming Language :: Python :: 3.7',
+          'Programming Language :: Python :: 3.8',
+          'Programming Language :: Python :: 3.9',
+          'Topic :: Software Development',
+          'Topic :: Software Development :: Libraries',
+          'Topic :: Software Development :: Libraries :: Python Modules',
+]
+requires-python = ">=2.7"
+dependencies = [
+    "requests>=2.25.1",
+]
+
+[project.urls]
+Homepage = "http://iblox.readthedocs.io/"
+Repository = "https://bitbucket.org/isaiah1112/infoblox"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
+[[tool.uv.index]]
+name = "test-pypi"
+url = "https://test.pypi.org/simple/"
+publish-url = "https://test.pypi.org/legacy/"
+explicit = true
+
+[dependency-groups]
+docs = [
+    "sphinx>=1.8.6",
+]
+test = [
+    "requests-mock>=1.11.0",
+]
