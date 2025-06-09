@@ -225,29 +225,27 @@ dependencies = [
 ]
 
 [package.dev-dependencies]
-dev = [
-    { name = "coverage" },
-    { name = "ruff" },
-]
 docs = [
     { name = "sphinx", version = "7.4.7", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
     { name = "sphinx", version = "8.1.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.10.*'" },
     { name = "sphinx", version = "8.2.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
 ]
 test = [
+    { name = "coverage" },
     { name = "requests-mock" },
+    { name = "ruff" },
 ]
 
 [package.metadata]
 requires-dist = [{ name = "requests", specifier = ">=2.25.1" }]
 
 [package.metadata.requires-dev]
-dev = [
+docs = [{ name = "sphinx", specifier = ">=1.8.6" }]
+test = [
     { name = "coverage", specifier = ">=5.5" },
+    { name = "requests-mock", specifier = ">=1.11.0" },
     { name = "ruff", specifier = ">=0.0.17" },
 ]
-docs = [{ name = "sphinx", specifier = ">=1.8.6" }]
-test = [{ name = "requests-mock", specifier = ">=1.11.0" }]
 
 [[package]]
 name = "idna"

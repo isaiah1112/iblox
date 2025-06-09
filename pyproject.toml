@@ -42,13 +42,11 @@ publish-url = "https://test.pypi.org/legacy/"
 explicit = true
 
 [dependency-groups]
-dev = [
+test = [
     "coverage>=5.5",
     "ruff>=0.0.17",
+    "requests-mock>=1.11.0",
 ]
 docs = [
     "sphinx>=1.8.6",
-]
-test = [
-    "requests-mock>=1.11.0",
 ]
