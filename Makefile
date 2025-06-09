@@ -6,20 +6,19 @@ UV_PATH := $(shell which uv 2>/dev/null)
 
 .PHONY: docs
 docs: init
-	@uv export --group docs --format requirements.txt --no-hashes -o docs/requirements.txt
 	@uv run --group docs sphinx-build -b html docs/source/ docs/build/html/
 
 .PHONY: test
 test: init
-	@uv run --group dev coverage run -m unittest discover test/
+	@uv run --group test coverage run -m unittest discover test/
 
-.PHONY: test-coverage
+.PHONY: coverage
 test-coverage: test
-	@coverage html
+	@uv run --group test coverage html
 
-.PHONY: test-lint
+.PHONY: lint
 test-lint: init
-	@uv run --group dev ruff check src/iblox/
+	@uv run --group test ruff check src/iblox/
 
 .PHONY: docker-test-all
 docker-test-all: docker-test-py39 docker-test-py310 docker-test-py311 docker-test-py312 docker-test-py313
@@ -29,35 +28,27 @@ docker-test-latest: docker-test-py313
 
 .PHONY: docker-test-py39
 docker-test-py39: PYTHON_VERSION := 3.9
-docker-test-py39:
-	@echo "Testing Python:$(PYTHON_VERSION)"
-	@docker run -it --rm -v "$(PWD)":/usr/src/app -w /usr/src/app python:$(PYTHON_VERSION)\
-		sh -c 'python -m pip install uv && uv run --group dev python -m unittest discover ./test/'
+docker-test-py39: --docker-test
 
 .PHONY: docker-test-py310
 docker-test-py310: PYTHON_VERSION := 3.10
-docker-test-py310:
-	@echo "Testing Python:$(PYTHON_VERSION)"
-	@docker run -it --rm -v "$(PWD)":/usr/src/app -w /usr/src/app python:$(PYTHON_VERSION)\
-		sh -c 'python -m pip install uv && uv run --group dev python -m unittest discover ./test/'
+docker-test-py310: --docker-test
 
 .PHONY: docker-test-py311
 docker-test-py311: PYTHON_VERSION := 3.11
-docker-test-py311:
-	@echo "Testing Python:$(PYTHON_VERSION)"
-	@docker run -it --rm -v "$(PWD)":/usr/src/app -w /usr/src/app python:$(PYTHON_VERSION)\
-		sh -c 'python -m pip install uv && uv run --group dev python -m unittest discover ./test/'
+docker-test-py311: --docker-test
 
 .PHONY: docker-test-py312
 docker-test-py312: PYTHON_VERSION := 3.12
-docker-test-py312:
-	@echo "Testing Python:$(PYTHON_VERSION)"
-	@docker run -it --rm -v "$(PWD)":/usr/src/app -w /usr/src/app python:$(PYTHON_VERSION)\
-		sh -c 'python -m pip install uv && uv run --group dev python -m unittest discover ./test/'
+docker-test-py312: --docker-test
 
 .PHONY: docker-test-py313
 docker-test-py313: PYTHON_VERSION := 3.13
-docker-test-py313:
+docker-test-py313: --docker-test
+
+# Private target for reducing copy/paste coding
+.PHONY: --docker-test
+--docker-test:
 	@echo "Testing Python:$(PYTHON_VERSION)"
 	@docker run -it --rm -v "$(PWD)":/usr/src/app -w /usr/src/app python:$(PYTHON_VERSION)\
-		sh -c 'python -m pip install uv && uv run --group dev python -m unittest discover ./test/'
+		sh -c 'python -m pip install uv && uv run --group test python -m unittest discover ./test/'
