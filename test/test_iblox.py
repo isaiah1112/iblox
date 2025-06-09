@@ -12,6 +12,32 @@ __author__ = 'Jesse Almanrode'
 
 import iblox
 
+class TestIPv4AddrObj(unittest.TestCase):
+    def test_basic(self):
+        result = iblox.ipv4addr_obj("192.168.1.1")
+        self.assertEqual(result, {"configure_for_dhcp": False, "ipv4addr": "192.168.1.1"})
+
+    def test_with_kwargs(self):
+        result = iblox.ipv4addr_obj("10.0.0.1", foo="bar", number=42)
+        self.assertEqual(result["ipv4addr"], "10.0.0.1")
+        self.assertEqual(result["foo"], "bar")
+        self.assertEqual(result["number"], 42)
+        self.assertFalse(result["configure_for_dhcp"])
+
+    def test_override_configure_for_dhcp(self):
+        result = iblox.ipv4addr_obj("8.8.8.8", configure_for_dhcp=True)
+        self.assertTrue(result["configure_for_dhcp"])
+        self.assertEqual(result["ipv4addr"], "8.8.8.8")
+
+    def test_ipaddr_types(self):
+        # Accepts any type, just assigns to dict
+        self.assertEqual(iblox.ipv4addr_obj(1234)["ipv4addr"], 1234)
+        self.assertEqual(iblox.ipv4addr_obj(None)["ipv4addr"], None)
+
+    def test_missing_ipaddr(self):
+        with self.assertRaises(TypeError):
+            iblox.ipv4addr_obj()
+
 
 @requests_mock.Mocker()
 class Testiblox(unittest.TestCase):
@@ -27,15 +53,6 @@ class Testiblox(unittest.TestCase):
         result = self.iblox_conn.verify(objtype='host', name_regex='test.*', _return_type='json')
         self.assertTrue(isinstance(result, dict))
         self.assertIn('name~', result.keys())
-        pass
-
-    def test_ipv4addr_obj(self, mock_adapter):
-        """ Test iblox.ipv4addr_obj function
-        """
-        result = iblox.ipv4addr_obj('192.168.0.1', configure_for_dhcp=True)
-        self.assertTrue(isinstance(result, dict))
-        self.assertEqual(result['configure_for_dhcp'], True)
-        self.assertEqual(result['ipv4addr'], '192.168.0.1')
         pass
 
     def test_get(self, mock_adapter):
