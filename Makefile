@@ -50,5 +50,5 @@ docker-test-py313: --docker-test
 .PHONY: --docker-test
 --docker-test:
 	@echo "Testing Python:$(PYTHON_VERSION)"
-	@docker run -it --rm -v "$(PWD)":/usr/src/app -w /usr/src/app python:$(PYTHON_VERSION)\
+	@docker run -it --rm -e UV_LINK_MODE="copy" -v "$(PWD)":/usr/src/app -w /usr/src/app python:$(PYTHON_VERSION)\
 		sh -c 'python -m pip install uv && uv run --group test python -m unittest discover ./test/'
