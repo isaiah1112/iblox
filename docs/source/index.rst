@@ -1,7 +1,4 @@
-.. iblox documentation master file, created by
-   sphinx-quickstart on Thu Nov  5 15:24:53 2015.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. iblox documentation master file
 
 .. _home:
 
@@ -63,15 +60,7 @@ If you are looking for examples of how the iblox module can be used be sure to c
 Compatibility
 -------------
 
-To maintain the most amount of compatibility we test iblox using the following versions of Python:
-
-* Python2.7
-* Python3.4
-* Python3.5
-* Python3.6
-* Python3.7
-* Python3.8
-* Python3.9
+This project currently is tested with all [supported versions of Python](https://devguide.python.org/versions/)
 
 Links
 -----
