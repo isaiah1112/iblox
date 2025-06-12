@@ -37,7 +37,7 @@ test-coverage: test
 	@uv run --group test coverage html
 
 .PHONY: lint
-lint: init
+lint: uv-init
 	@uv run --group test ruff check src/iblox/
 
 .PHONY: docker-test-all
