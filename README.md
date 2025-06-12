@@ -12,8 +12,9 @@ see the file LICENSE and LICENSE.lesser for the license text.
 ## Installation
 
 The most straightforward way to get the iblox module working for you is:
-
-> pip install iblox
+```commandline
+pip install iblox
+```
 
 This will ensure that all the requirements are met.
 
@@ -21,13 +22,12 @@ This will ensure that all the requirements are met.
 
 Documentation for the iblox module can be found at http://iblox.readthedocs.io/
 
-### Building Docs
+You can build the documentation locally by running:
+```commandline
+make docs;
+```
 
-If you have installed the requirements for iblox you can build its Sphinx Documentation simply by:
-
-> make docs;
-
-Then simply open **docs/build/html/index.html** in your browser.
+Then simply open `docs/build/html/index.html` in your browser.
 
 ## Contributing
 

@@ -313,8 +313,6 @@ class Infoblox(object):
     __verify = verify
     __get = get
     __add = add
-    __delete = delete
     __modify = modify
-    __call = call
     __get_host = get_host
     __get_host_by_name = get_host_by_name
