@@ -1,12 +1,10 @@
-.. iblox documentation master file, created by Jesse Almanrode
+.. iblox documentation master file
 
 Iblox API
 =========
 
 .. automodule:: iblox
     :members:
-
-
 
 Links
 -----

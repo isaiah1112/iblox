@@ -1,16 +1,8 @@
-## Overview
+![Logo](docs/source/_static/iblox.png "iblox")
 
-[iblox][] is a wrapper for [Infoblox's WAPI](https://www.infoblox.com/).
-It uses Python's request module to handle session caching and is very flexible. In order to maintain the most amount of
-compatibility we test iblox using the following versions of Python:
-
-* Python2.7
-* Python3.4
-* Python3.5
-* Python3.6
-* Python3.7
-* Python3.8
-* Python3.9
+A Python module for interacting with [Infoblox's WAPI](https://www.infoblox.com/).
+It uses Python's request module to handle session caching and is very flexible.
+We currently maintian compatibility with the [latest supported versions of Python!](https://devguide.python.org/versions/)
 
 ## License
 
@@ -20,36 +12,22 @@ see the file LICENSE and LICENSE.lesser for the license text.
 ## Installation
 
 The most straightforward way to get the iblox module working for you is:
-
-> pip install iblox
-
-or
-
-> python setup.py install
+```commandline
+pip install iblox
+```
 
 This will ensure that all the requirements are met.
-
-### Development Installation
-
-If you are wanting to work on development of iblox perform the following:
-
-> pip install -U -r requirements_test.txt
-
-To ensure all development requirements are met. This will allow you to build the Sphinx Documentation!
 
 ## Documentation
 
 Documentation for the iblox module can be found at http://iblox.readthedocs.io/
 
-### Building Docs
+You can build the documentation locally by running:
+```commandline
+make docs;
+```
 
-If you have installed the requirements for iblox you can build its Sphinx Documentation simply by:
-
-> pip install -U -r requirements_docs.txt
-> cd docs;
-> make html
-
-Then simply open **docs/build/html/index.html** in your browser.
+Then simply open `docs/build/html/index.html` in your browser.
 
 ## Contributing
 
