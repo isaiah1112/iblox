@@ -1,17 +1,19 @@
 # Default Python version (for Docker tests)
 PYTHON_VERSION := 3.13
 UV_PATH := $(shell which uv 2>/dev/null)
+# Whether to use UV for installation
+UV_INSTALL := 1
 
 .PHONY: help
 help:
-	@echo "Usage: make <target> [PYTHON_VERSION=3.11]"
+	@echo "Usage: make <target> [option]"
 	@echo "\nTargets:"
-	@echo "  install            Install this package (pip install)"
-	@echo "  docs               Build Sphinx documentation"
-	@echo "  test               Run unit tests"
-	@echo "  coverage           Build an HTML coverage report"
-	@echo "  lint               Run 'ruff' linting on project"
-	@echo "  docker-test        Run unit tests in Docker container"
+	@echo "  install [UV_INSTALL]    Install this package"
+	@echo "  docs    Build Sphinx documentation"
+	@echo "  test    Run unit tests"
+	@echo "  coverage    Build an HTML coverage report"
+	@echo "  lint    Run 'ruff' linting on project"
+	@echo "  docker-test [PYTHON_VERSION]    Run unit tests in Docker container"
 	@echo "\nSpecial Targets:"
 	@echo "  docker-test-all    Runs unit tests in Docker containers across all versions of Python"
 
@@ -22,7 +24,11 @@ uv-init:
 
 .PHONY: install
 install:
-	@pip install .
+	@if [ $(UV_INSTALL) -eq 1 ]; then\
+		$(MAKE) uv-init && uv sync && echo "Please run the following to activate the virtualenv:" && echo " source .venv/bin/activate";\
+	else\
+		python -m pip install .;\
+	fi
 
 .PHONY: docs
 docs: uv-init
