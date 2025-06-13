@@ -5,11 +5,10 @@
 Iblox Python Module
 ===================
 
-If you are working with the Infoblox WAPI then you need iblox.  It is a highly extensible Python wrapper for the WAPI and can
+If you are working with the `Infoblox`_ WAPI then you need iblox.  It is a highly extensible Python wrapper for the WAPI and can
 be used across many versions of Infoblox.  That is what makes iblox stand out from other modules for Infoblox,
 it was designed not to contain a bunch of aliases for doing things via the WAPI but actually allow you to control every
 aspect of the WAPI via Python.
-
 
 Getting Started
 ---------------
@@ -60,11 +59,13 @@ If you are looking for examples of how the iblox module can be used be sure to c
 Compatibility
 -------------
 
-This project currently is tested with all [supported versions of Python](https://devguide.python.org/versions/)
+This project currently is tested with all `supported versions of Python.`_
 
 Links
 -----
 
 * :ref:`genindex`
 
+.. _Infoblox: https://www.infoblox.com
 .. _EXAMPLES file on Bitbucket: https://bitbucket.org/isaiah1112/infoblox
+.. _supported versions of Python.: https://devguide.python.org/versions/
