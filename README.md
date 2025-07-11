@@ -1,4 +1,4 @@
-![Logo](docs/source/_static/iblox.png "iblox")
+![Logo](./logo.png "iblox")
 
 A Python module for interacting with [Infoblox's WAPI](https://www.infoblox.com/).
 It uses Python's request module to handle session caching and is very flexible.
@@ -21,13 +21,6 @@ This will ensure that all the requirements are met.
 ## Documentation
 
 Documentation for the iblox module can be found at http://iblox.readthedocs.io/
-
-You can build the documentation locally by running:
-```commandline
-make docs;
-```
-
-Then simply open `docs/build/html/index.html` in your browser.
 
 ## Contributing
 
