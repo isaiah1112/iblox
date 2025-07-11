@@ -6,7 +6,7 @@ pipelines:
         name: Lint using Ruff
         script:
           - pip install uv
-          - uv run --group test ruff check --exit-zero src/iblox/
+          - uv run --group test ruff check src/iblox/
         caches:
             - pip
     - step: &py39
@@ -67,6 +67,7 @@ pipelines:
             - pip
     master:
       - step: *lint
+      - step: *py39
       - step: *py310
       - step: *py311
       - step: *py312
