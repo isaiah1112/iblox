@@ -1,4 +1,3 @@
-# coding=utf-8
 """A Python Module for interacting with the Infoblox WAPI.  The module supports auth sessions via the
 requests module as well as numerous shortcuts for manipulating objects within Infoblox.
 """
@@ -17,9 +16,11 @@ requests module as well as numerous shortcuts for manipulating objects within In
 #     You should have received a copy of the GNU Lesser General Public License
 #     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import requests
+import contextlib
 import json
 from collections import namedtuple
+
+import requests
 
 
 def ipv4addr_obj(ipaddr, **kwargs):
@@ -34,7 +35,7 @@ def ipv4addr_obj(ipaddr, **kwargs):
     return ipv4_obj
 
 
-class Infoblox(object):
+class Infoblox:
     """Create a new instance of the Infoblox WAPI Object
 
     :param uri: Full url to the Infoblox WAPI
@@ -59,10 +60,8 @@ class Infoblox(object):
         self.view = 'default'
         if verify_ssl is False:
             # This is so you don't get weird warning messages about not verifying ssl certs
-            try:
+            with contextlib.suppress(AttributeError):
                 requests.packages.urllib3.disable_warnings()
-            except AttributeError:
-                pass
 
     def __str__(self):
         return str(self.__dict__)
@@ -91,9 +90,8 @@ class Infoblox(object):
         :return: Dictionary ready for wapi call
         """
         nkeys = kwargs.keys()
-        if '_ref' not in nkeys and 'objtype' not in nkeys:
-            if '_function' not in nkeys:
-                raise ValueError("objtype or _ref is required!")
+        if '_ref' not in nkeys and 'objtype' not in nkeys and '_function' not in nkeys:
+            raise ValueError("objtype or _ref is required!")
 
         if "_return_type" in nkeys:
             if kwargs['_return_type'] not in self.returnTypes:
@@ -213,7 +211,7 @@ class Infoblox(object):
         :param kwargs: Can contain dictionary of data to search for or _ref of specific record
         :return: string of _return_type (json or xml)
         """
-        if "_ref" in kwargs.keys():
+        if "_ref" in kwargs:
             return self.__get(**kwargs)
         else:
             kwargs['objtype'] = "record:host"
@@ -262,8 +260,8 @@ class Infoblox(object):
         """
         try:
             host = self.__get_host_by_name(fqdn)[0]
-        except IndexError:
-            raise IndexError("Unable to find host with name " + fqdn)
+        except IndexError as err:
+            raise IndexError("Unable to find host with name " + fqdn) from err
         if type(ipaddr) in (list, tuple):
             for ip in map(ipv4addr_obj, ipaddr):
                 host['ipv4addrs'].append(ip)
@@ -279,7 +277,7 @@ class Infoblox(object):
         :return: string of _return_type (json or xml)
         """
         thishost = self.__get_host(name=fqdn, _return_fields_plus="aliases")[0]
-        if 'aliases' not in thishost.keys():
+        if 'aliases' not in thishost:
             thishost['aliases'] = []
         if type(alias) in (list, tuple):
             for name in alias:
@@ -298,7 +296,7 @@ class Infoblox(object):
         :return: string of _return_type (json or xml)
         """
         thishost = self.__get_host(name=fqdn, _return_fields_plus='aliases')[0]
-        if 'aliases' not in thishost.keys():
+        if 'aliases' not in thishost:
             return thishost
         else:
             if type(alias) in (list, tuple):
