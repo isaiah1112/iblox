@@ -39,7 +39,7 @@ test: uv-init
 	@uv run --group test coverage run -m unittest discover test/
 
 .PHONY: coverage
-test-coverage: test
+coverage: test
 	@uv run --group test coverage html
 
 .PHONY: lint
