@@ -9,14 +9,6 @@ pipelines:
           - uv run --group test ruff check src/iblox/
         caches:
             - pip
-    - step: &py39
-        name: Python 3.9 Tests
-        image: python:3.9
-        script:
-          - pip install uv
-          - uv run --group test python -m unittest discover test/
-        caches:
-          - pip
     - step: &py310
         name: Python 3.10 Tests
         image: python:3.10
@@ -49,14 +41,22 @@ pipelines:
           - uv run --group test python -m unittest discover test/
         caches:
           - pip
+    - step: &py314
+        name: Python 3.14 Tests
+        image: python:3.14
+        script:
+          - pip install uv
+          - uv run --group test python -m unittest discover test/
+        caches:
+          - pip
   branches:
     release/*:
       - step: *lint
-      - step: *py39
       - step: *py310
       - step: *py311
       - step: *py312
       - step: *py313
+      - step: *py314
       - step:
           name: Deploy To Test PyPi
           trigger: manual
@@ -67,11 +67,11 @@ pipelines:
             - pip
     master:
       - step: *lint
-      - step: *py39
       - step: *py310
       - step: *py311
       - step: *py312
       - step: *py313
+      - step: *py314
       - step:
           name: Deploy To PyPi
           script:
