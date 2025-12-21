@@ -1,5 +1,5 @@
 # Default Python version (for Docker tests)
-PYTHON_VERSION := 3.13
+PYTHON_VERSION := 3.14
 UV_PATH := $(shell which uv 2>/dev/null)
 # Whether to use UV for installation
 UV_INSTALL := 1
@@ -36,7 +36,7 @@ docs: uv-init
 
 .PHONY: test
 test: uv-init
-	@uv run --group test coverage run -m unittest discover test/
+	@uv run --group test coverage run -m pytest
 
 .PHONY: coverage
 coverage: test
@@ -48,11 +48,11 @@ lint: uv-init
 
 .PHONY: docker-test-all
 docker-test-all:
-	@$(MAKE) docker-test PYTHON_VERSION=3.9
 	@$(MAKE) docker-test PYTHON_VERSION=3.10
 	@$(MAKE) docker-test PYTHON_VERSION=3.11
 	@$(MAKE) docker-test PYTHON_VERSION=3.12
 	@$(MAKE) docker-test PYTHON_VERSION=3.13
+	@$(MAKE) docker-test PYTHON_VERSION=3.14
 
 # Run unit tests in a Docker Python container
 .PHONY: docker-test

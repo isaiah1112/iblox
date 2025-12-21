@@ -6,7 +6,7 @@ pipelines:
         name: Lint using Ruff
         script:
           - pip install uv
-          - uv run --group test ruff check src/iblox/
+          - uv run --group test ruff check src/
         caches:
             - pip
     - step: &py310
@@ -14,7 +14,7 @@ pipelines:
         image: python:3.10
         script:
           - pip install uv
-          - uv run --group test python -m unittest discover test/
+          - uv run --group test python -m pytest
         caches:
           - pip
     - step: &py311
@@ -22,7 +22,7 @@ pipelines:
         image: python:3.11
         script:
           - pip install uv
-          - uv run --group test python -m unittest discover test/
+          - uv run --group test python -m pytest
         caches:
           - pip
     - step: &py312
@@ -30,7 +30,7 @@ pipelines:
         image: python:3.12
         script:
           - pip install uv
-          - uv run --group test python -m unittest discover test/
+          - uv run --group test python -m pytest
         caches:
           - pip
     - step: &py313
@@ -38,7 +38,7 @@ pipelines:
         image: python:3.13
         script:
           - pip install uv
-          - uv run --group test python -m unittest discover test/
+          - uv run --group test python -m pytest
         caches:
           - pip
     - step: &py314
@@ -46,7 +46,7 @@ pipelines:
         image: python:3.14
         script:
           - pip install uv
-          - uv run --group test python -m unittest discover test/
+          - uv run --group test python -m pytest
         caches:
           - pip
   branches:
