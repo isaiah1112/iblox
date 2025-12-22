@@ -21,6 +21,7 @@ import json
 from collections import namedtuple
 
 import requests
+import urllib3
 
 
 def ipv4addr_obj(ipaddr, **kwargs):
@@ -61,7 +62,7 @@ class Infoblox:
         if verify_ssl is False:
             # This is so you don't get weird warning messages about not verifying ssl certs
             with contextlib.suppress(AttributeError):
-                requests.packages.urllib3.disable_warnings()
+                urllib3.disable_warnings()
 
     def __str__(self):
         return str(self.__dict__)
