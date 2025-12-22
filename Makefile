@@ -13,6 +13,7 @@ help:
 	@echo "  test    Run unit tests"
 	@echo "  coverage    Build an HTML coverage report"
 	@echo "  lint    Run 'ruff' linting on project"
+	@echo "  type    Run 'ty' type-checking on project"
 	@echo "  docker-test [PYTHON_VERSION]    Run unit tests in Docker container"
 	@echo "\nSpecial Targets:"
 	@echo "  docker-test-all    Runs unit tests in Docker containers across all versions of Python"
@@ -44,7 +45,11 @@ coverage: test
 
 .PHONY: lint
 lint: uv-init
-	@uv run --group test ruff check src/iblox/
+	@uv run --group test ruff check src/
+
+.PHONY: type
+type: uv-init
+	@uv run --group test ty check src/
 
 .PHONY: docker-test-all
 docker-test-all:

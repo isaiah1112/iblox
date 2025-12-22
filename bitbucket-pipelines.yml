@@ -3,10 +3,11 @@ image: python:latest
 pipelines:
   default:
     - step: &lint
-        name: Lint using Ruff
+        name: Lint using ruff, type-check using ty
         script:
           - pip install uv
           - uv run --group test ruff check src/
+          - uv run --group test ty check src/
         caches:
             - pip
     - parallel:

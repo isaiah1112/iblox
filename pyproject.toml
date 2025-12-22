@@ -50,6 +50,7 @@ test = [
     "ruff>=0.0.17",
     "requests-mock>=1.11.0",
     "pytest>=9.0.2",
+    "ty>=0.0.5",
 ]
 docs = [
     "sphinx>=1.8.6",
