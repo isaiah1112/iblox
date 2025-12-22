@@ -29,14 +29,13 @@ Documentation for the iblox module can be found at http://iblox.readthedocs.io/
 
 Comments and enhancements are very welcome.
 
-Report any issues or feature requests on the [BitBucket bug
-tracker](https://bitbucket.org/isaiah1112/infoblox/issues?status=new&status=open). Please include a minimal
-(not-) working example which reproduces the bug and, if appropriate, the
+Report any issues or feature requests on the [GitHub Issues Tracker](https://github.com/isaiah1112/iblox/issues). 
+Please include a minimal (not-) working example which reproduces the bug and, if appropriate, the
  traceback information.  Please do not request features already being worked
 towards.
 
-Code contributions are encouraged: please feel free to [fork the
-project](https://bitbucket.org/isaiah1112/infoblox/fork) and submit pull requests to the **develop** branch.
+Code contributions are encouraged: please feel free to [fork the project](https://github.com/isaiah1112/iblox) 
+and submit pull requests to the **develop** branch.
 
 ## More information
 
@@ -44,4 +43,4 @@ project](https://bitbucket.org/isaiah1112/infoblox/fork) and submit pull request
 
 [GNU Lesser General Public License v3.0]: http://choosealicense.com/licenses/lgpl-3.0/ "LGPL v3"
 
-[iblox]: https://bitbucket.org/isaiah1112/infoblox "iblox Module"
+[iblox]: https://github.com/isaiah1112/iblox "iblox Module"

@@ -54,7 +54,7 @@ the link in the right "drawer" of the Infoblox Grid Manager web interface.
 
 Examples
 --------
-If you are looking for examples of how the iblox module can be used be sure to check out the `EXAMPLES file on Bitbucket`_
+If you are looking for examples of how the iblox module can be used be sure to check out the `EXAMPLES file on GitHub`_
 
 Compatibility
 -------------
@@ -67,5 +67,5 @@ Links
 * :ref:`genindex`
 
 .. _Infoblox: https://www.infoblox.com
-.. _EXAMPLES file on Bitbucket: https://bitbucket.org/isaiah1112/infoblox
+.. _EXAMPLES file on GitHub: https://github.com/isaiah1112/iblox
 .. _supported versions of Python.: https://devguide.python.org/versions/
