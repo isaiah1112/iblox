@@ -1,5 +1,8 @@
 ![Logo](./logo.png "iblox")
 
+[![Python Tests](https://github.com/isaiah1112/iblox/actions/workflows/python-tests.yml/badge.svg)](https://github.com/isaiah1112/iblox/actions/workflows/lint_and_test.yml)
+
+
 A Python module for interacting with [Infoblox's WAPI](https://www.infoblox.com/).
 It uses Python's request module to handle session caching and is very flexible.
 We currently maintian compatibility with the [latest supported versions of Python!](https://devguide.python.org/versions/)
