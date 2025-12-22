@@ -1,6 +1,6 @@
 ![Logo](./logo.png "iblox")
 
-[![Python Tests](https://github.com/isaiah1112/iblox/actions/workflows/python-tests.yml/badge.svg)](https://github.com/isaiah1112/iblox/actions/workflows/lint_and_test.yml)
+[![Python Tests](https://github.com/isaiah1112/iblox/actions/workflows/python-tests.yml/badge.svg)](https://github.com/isaiah1112/iblox/actions/workflows/lint-and-test.yml)
 
 
 A Python module for interacting with [Infoblox's WAPI](https://www.infoblox.com/).
